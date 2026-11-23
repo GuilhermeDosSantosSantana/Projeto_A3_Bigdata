@@ -23,5 +23,6 @@ Todos os dados são sintéticos. Os hashes com caracteres repetidos são marcado
 - `evidencias/resultados.json`: saída integral da última execução.
 - `output/pdf/CONFIA_relatorio_A3.pdf`: relatório para entrega.
 - `PITCH.md`: roteiro curto para apresentação.
+- `output/CONFIA_pitch_A3.pptx`: apresentação editável de seis slides.
 
 Antes de entregar, incluir nomes do grupo no PDF e conferir a duração definida pela professora, pois o enunciado deixa esses campos em branco.

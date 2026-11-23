@@ -6,7 +6,8 @@
 > **Atualização de entrega (23/11/2026):** a A3 agora possui relatório final em
 > `output/pdf/CONFIA_relatorio_A3.pdf`, protótipo relacional reproduzível em `sql/`,
 > oito consultas executadas com resultados em `evidencias/resultados.json` e roteiro
-> de apresentação em `PITCH.md`. O comando `npm run demo` foi verificado localmente.
+> de apresentação em `PITCH.md`, com seis slides editáveis em
+> `output/CONFIA_pitch_A3.pptx`. O comando `npm run demo` foi verificado localmente.
 > O plano de 17 tarefas abaixo permanece como visão de produto futuro; a integração
 > com Asaas e o aplicativo em tempo real não fazem parte desta prova de conceito.
 > Consulte `README.md` para reprodução. A seção 6 registra pendências históricas

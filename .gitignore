@@ -26,3 +26,7 @@ npm-debug.log*
 Thumbs.db
 desktop.ini
 .DS_Store
+
+# Artefatos temporarios da geracao do pitch
+.pitch-build/
+scripts/node_modules/
