@@ -17,6 +17,8 @@
 > PostgreSQL local persistido em `data/postgres/` e provedor simulado em `data/`.
 > `npm start` abre o sistema em `http://127.0.0.1:3000`; `npm test` cobre os três
 > vereditos, reenvio idempotente e persistência após reinício. Não há Pix real.
+> A tela inicial agora é a visão do lojista, com decisão de entrega e motivos
+> recuperados de `sinal_apurado` e `regra`; a simulação foi isolada em `/laboratorio`.
 
 > Este documento existe para você retomar o projeto sem refazer nada e sem repetir discussão já
 > encerrada. Leia a seção 3 antes de propor qualquer mudança de rumo — ela registra o que já foi

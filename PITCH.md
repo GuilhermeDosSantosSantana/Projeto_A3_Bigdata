@@ -8,7 +8,7 @@
 
 **Modelagem e qualidade (60 s).** Mostrar `sql/01_schema.sql`: 15 tabelas, identidade de pagador única por loja, UNIQUE em `(psp, end_to_end_id)`, uma análise por pagamento. Mostrar que a ingestão bruta não possui FK para pagamento: ela pode ser expurgada após sete dias, enquanto o pagamento normalizado continua.
 
-**Demonstração (90 s).** Rodar `npm start` e abrir `http://127.0.0.1:3000`. Criar um Pix fictício: antes da confirmação, ainda não aparece na lista. Confirmar no provedor simulado e mostrar APROVADO/LIBERADA. Repetir com EM_ANALISE/RETIDA e RECUSADO/RETIDA. Depois abrir `evidencias/resultados.json`: PN01, PN02 (só dois rótulos, sem conclusão estatística), PN03, PN04 e PN07. Mostrar `duplicate_blocked=true`, `raw_after_purge=0` e `normalized_after_purge=12`.
+**Demonstração (90 s).** Rodar `npm start`. Abrir a visão do lojista em `http://127.0.0.1:3000` e explicar que é onde ele recebe a decisão. Em outra aba, abrir `/laboratorio`, criar um Pix fictício e mostrar que ele ainda não aparece como recebido. Confirmar no provedor simulado; voltar à visão do lojista e mostrar valor, ação de entrega e motivos em linguagem comum. Repetir com EM_ANALISE e RECUSADO, destacando os sinais. Depois abrir `evidencias/resultados.json`: PN01, PN02 (só dois rótulos, sem conclusão estatística), PN03, PN04 e PN07. Mostrar `duplicate_blocked=true`, `raw_after_purge=0` e `normalized_after_purge=12`.
 
 **Fecho (30 s).** A escolha do banco nasce do ciclo de vida do dado: receber, validar, decidir, auditar e reduzir retenção de dados pessoais. O próximo passo é integrar um PSP em sandbox e medir carga real. O protótipo comprova modelagem e consultas; ainda não comprova a eficácia do antifraude em produção.
 

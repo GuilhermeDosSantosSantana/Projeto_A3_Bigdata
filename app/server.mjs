@@ -25,6 +25,18 @@ for(const [table,key] of [['lojista','id_lojista'],['usuario','id_usuario'],['co
  const n=Number((await db.query(`SELECT coalesce(max(${key}),0)::int AS n FROM ${table}`)).rows[0].n);
  await db.query('SELECT setval(pg_get_serial_sequence($1,$2),$3,$4)',[table,key,Math.max(1,n),n>0]);
 }
+// Corrige apenas decisões locais antigas que combinaram, por engano, "primeira compra" e contestação prévia.
+await db.exec(`UPDATE sinal_apurado s SET disparou=false, contribuicao=0
+ FROM analise_risco a JOIN pagamento p ON p.id_pagamento=a.id_pagamento
+ JOIN regra r ON r.codigo='RN04' AND r.versao=1
+ WHERE s.id_analise=a.id_analise AND s.id_regra=r.id_regra AND s.disparou
+ AND p.psp='SIMULADOR_LOCAL' AND EXISTS (
+   SELECT 1 FROM sinal_apurado sx JOIN regra rx ON rx.id_regra=sx.id_regra
+   WHERE sx.id_analise=a.id_analise AND sx.disparou AND rx.codigo='RN09'
+ );
+ UPDATE analise_risco a SET score=LEAST(100,(
+   SELECT COALESCE(SUM(s.contribuicao),0) FROM sinal_apurado s WHERE s.id_analise=a.id_analise
+ )) WHERE EXISTS (SELECT 1 FROM pagamento p WHERE p.id_pagamento=a.id_pagamento AND p.psp='SIMULADOR_LOCAL');`);
 const providerFile=path.join(dataDir,'provedor-simulado.json');
 let intents=[];
 try{intents=JSON.parse(await readFile(providerFile,'utf8'));}catch{await writeFile(providerFile,'[]');}
@@ -32,12 +44,30 @@ const saveProvider=()=>writeFile(providerFile,JSON.stringify(intents,null,2));
 let queue=Promise.resolve();
 function exclusive(fn){const next=queue.then(fn,fn);queue=next.catch(()=>{});return next;}
 const amounts={aprovado:42.50,analise:null,recusado:2800};
+const reasonText={
+ RN09:'Este pagador já teve uma contestação registrada nesta loja.',
+ RN05:'O nome associado ao pagador diverge do histórico desta loja.',
+ RN08:'Houve um pagamento pequeno seguido de outro muito maior em pouco tempo.',
+ RN04:'É a primeira compra deste pagador e o valor está acima do padrão da loja.',
+ RN06:'O mesmo pagador fez vários pagamentos em poucos minutos.',
+ RN07:'O valor está acima do padrão recente da loja.',
+ RN12:'O pagador apareceu em várias contas desta loja no mesmo dia.',
+ RN11:'A loja recebeu uma rajada incomum de pagamentos.',
+ RN10:'O pagamento ocorreu fora do horário informado pela loja.'
+};
 function json(res,status,obj){res.writeHead(status,{'content-type':'application/json; charset=utf-8','cache-control':'no-store'});res.end(JSON.stringify(obj));}
 async function body(req){let s='';for await(const c of req){s+=c;if(s.length>8192)throw Error('Corpo grande demais');}return s?JSON.parse(s):{};}
 async function state(){
  const payments=(await db.query(`SELECT p.id_pagamento,p.end_to_end_id,p.valor,p.ocorrido_em,p.situacao_entrega,
- a.veredito,a.score,a.latencia_ms FROM pagamento p LEFT JOIN analise_risco a USING(id_pagamento)
+ a.id_analise,a.veredito,a.score,a.latencia_ms,n.conteudo AS notificacao
+ FROM pagamento p LEFT JOIN analise_risco a USING(id_pagamento)
+ LEFT JOIN notificacao n USING(id_pagamento)
  WHERE p.psp='SIMULADOR_LOCAL' ORDER BY p.id_pagamento DESC LIMIT 30`)).rows;
+ for(const payment of payments){
+  const signals=(await db.query(`SELECT r.codigo FROM sinal_apurado s JOIN regra r USING(id_regra)
+   WHERE s.id_analise=$1 AND s.disparou ORDER BY s.contribuicao DESC,r.codigo`,[payment.id_analise])).rows;
+  payment.reasons=signals.map(x=>({code:x.codigo,text:reasonText[x.codigo] || x.codigo}));
+ }
  return {mode:'SIMULADOR_LOCAL',intents:intents.slice(-10).reverse().map(({id,scenario,amount,status,createdAt})=>({id,scenario,amount,status,createdAt})),payments};
 }
 async function processConfirmed(intent){
@@ -46,7 +76,15 @@ async function processConfirmed(intent){
  if(!pspRecord || pspRecord.status!=='CONFIRMADO') throw Error('Pagamento não confirmado pelo provedor');
  const e2e=`SIM-${pspRecord.id}`;
  const duplicate=await db.query('SELECT id_pagamento FROM pagamento WHERE psp=$1 AND end_to_end_id=$2',['SIMULADOR_LOCAL',e2e]);
- if(duplicate.rows.length) return {duplicate:true,idPagamento:Number(duplicate.rows[0].id_pagamento)};
+ if(duplicate.rows.length){
+  const idPagamento=Number(duplicate.rows[0].id_pagamento);
+  const saved=(await db.query(`SELECT p.situacao_entrega,a.veredito,a.score,a.id_analise
+   FROM pagamento p JOIN analise_risco a USING(id_pagamento) WHERE p.id_pagamento=$1`,[idPagamento])).rows[0];
+  const signals=(await db.query(`SELECT r.codigo FROM sinal_apurado s JOIN regra r USING(id_regra)
+   WHERE s.id_analise=$1 AND s.disparou ORDER BY s.contribuicao DESC,r.codigo`,[saved.id_analise])).rows.map(x=>x.codigo);
+  return {duplicate:true,idPagamento,verdict:saved.veredito,score:Number(saved.score),delivery:saved.situacao_entrega,
+   signals,reasons:signals.map(code=>({code,text:reasonText[code]}))};
+ }
  const began=Date.now();
  await db.exec('BEGIN');
  try{
@@ -70,7 +108,7 @@ async function processConfirmed(intent){
   const fired=new Set();
   if(Number(prior?.qtd_contestacoes || 0)>0) fired.add('RN09');
   if(prior?.nome_hash && prior.nome_hash.trim()!==nameHash) fired.add('RN05');
-  if(!prior?.qtd_pagamentos && pspRecord.amount>Number(stats.p95)) fired.add('RN04');
+  if(!prior && pspRecord.amount>Number(stats.p95)) fired.add('RN04');
   if(pspRecord.amount>Number(stats.p99)) fired.add('RN07');
   if(localHour<8 || localHour>=20) fired.add('RN10');
   const recent=(await db.query(`SELECT valor FROM pagamento WHERE id_pagador=$1 AND ocorrido_em>=now()-interval '30 minutes'`,[idPagador])).rows;
@@ -93,7 +131,7 @@ async function processConfirmed(intent){
   await db.query(`UPDATE pagador SET qtd_pagamentos=qtd_pagamentos+1,
    primeiro_pagamento_em=coalesce(primeiro_pagamento_em,now()),ultimo_pagamento_em=now() WHERE id_pagador=$1`,[idPagador]);
   await db.exec('COMMIT');
-  return {duplicate:false,idPagamento,verdict,score,delivery,signals:[...fired]};
+  return {duplicate:false,idPagamento,verdict,score,delivery,signals:[...fired],reasons:[...fired].map(code=>({code,text:reasonText[code]}))};
  }catch(e){await db.exec('ROLLBACK');throw e;}
 }
 const server=createServer(async(req,res)=>{
@@ -122,8 +160,8 @@ const server=createServer(async(req,res)=>{
     const result=await processConfirmed(intent);return {...result,providerStatus:intent.status};
    }));
   }
-  if(req.method==='GET' && (url.pathname==='/' || url.pathname==='/app.js' || url.pathname==='/style.css')){
-   const file=url.pathname==='/'?'index.html':url.pathname.slice(1);
+  if(req.method==='GET' && (url.pathname==='/' || url.pathname==='/laboratorio' || url.pathname==='/app.js' || url.pathname==='/lab.js' || url.pathname==='/style.css')){
+   const file=url.pathname==='/'?'index.html':url.pathname==='/laboratorio'?'laboratorio.html':url.pathname.slice(1);
    const content=await readFile(path.join(root,'app','public',file));
    res.writeHead(200,{'content-type':file.endsWith('.js')?'text/javascript; charset=utf-8':file.endsWith('.css')?'text/css; charset=utf-8':'text/html; charset=utf-8'});res.end(content);return;
   }

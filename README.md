@@ -11,7 +11,7 @@ npm install
 npm start
 ```
 
-Abra **http://127.0.0.1:3000**. Escolha um cenário, clique em **Criar pagamento fictício** e depois em **Confirmar no provedor simulado**. O pagamento só entra no banco após a API reconsultar o estado confirmado no provedor local. A tela mostra veredito, score e situação da entrega. Os dados persistem após reiniciar o servidor.
+Abra **http://127.0.0.1:3000** para ver a tela do lojista: pagamentos recebidos, decisão de entrega e motivos. Para gerar eventos fictícios, entre em **http://127.0.0.1:3000/laboratorio**. Ali escolha um cenário, clique em **Criar pagamento fictício** e depois em **Confirmar no provedor simulado**. Volte à tela do lojista para ver a notificação. O pagamento só entra no banco após a API reconsultar o estado confirmado no provedor local. Os dados persistem após reiniciar o servidor.
 
 No Windows, também é possível dar dois cliques em `INICIAR_DEMO.cmd`. Mantenha a janela aberta durante a apresentação. O cenário de valor acima do perfil calcula seu valor a partir do histórico atual, para continuar testável após vários ensaios.
 
@@ -34,13 +34,14 @@ Todos os dados são sintéticos. A amostra SQL histórica usa marcadores repetid
 ## Estrutura
 
 - `sql/01_schema.sql`: 15 tabelas, FKs, restrições e índices.
-- `app/`: front, API local e teste ponta a ponta.
+- `app/`: tela do lojista, laboratório de simulação, API local e teste ponta a ponta.
 - `INICIAR_DEMO.cmd`: inicialização rápida para o pitch no Windows.
 - `data/`: banco persistente e provedor simulado, criado na primeira execução e ignorado pelo Git.
 - `sql/02_amostra.sql`: amostra fictícia com padrões de fraude plantados.
 - `sql/queries/pn01.sql` a `pn08.sql`: perguntas de negócio executáveis.
 - `evidencias/resultados.json`: saída integral da última execução.
 - `evidencias/tela-confirmacao.png`: captura do front após confirmação no navegador.
+- `evidencias/tela-lojista-retida.png`: tela do lojista com decisão de entrega e motivos.
 - `output/pdf/CONFIA_relatorio_A3.pdf`: relatório para entrega.
 - `PITCH.md`: roteiro curto para apresentação.
 - `output/CONFIA_pitch_A3.pptx`: apresentação editável de seis slides.

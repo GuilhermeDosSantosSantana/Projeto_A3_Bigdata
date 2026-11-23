@@ -27,20 +27,28 @@ test('criação pendente, confirmação, vereditos, idempotência e persistênci
  let child;
  try{
   child=await start(dir);
+  assert.match(await (await fetch(base+'/')).text(),/Saiba quando pode entregar/);
+  assert.match(await (await fetch(base+'/laboratorio')).text(),/Simule a chegada de um Pix/);
   for(const [scenario,verdict,delivery] of [['aprovado','APROVADO','LIBERADA'],['analise','EM_ANALISE','RETIDA'],['recusado','RECUSADO','RETIDA']]){
    const intent=await req('/api/intents','POST',{scenario});
    assert.equal(intent.status,'PENDENTE');
    assert.equal((await req('/api/state')).payments.length,scenario==='aprovado'?0:scenario==='analise'?1:2);
    const result=await req(`/api/intents/${intent.id}/confirm`,'POST');
    assert.equal(result.verdict,verdict);assert.equal(result.delivery,delivery);
+   if(scenario==='recusado'){
+    assert.ok(result.reasons.some(r=>r.text.includes('contestação')));
+    assert.ok(!result.reasons.some(r=>r.text.includes('primeira compra')));
+   }
    const repeat=await req(`/api/intents/${intent.id}/confirm`,'POST');
-   assert.equal(repeat.duplicate,true);
+   assert.equal(repeat.duplicate,true);assert.equal(repeat.verdict,verdict);
   }
   const repeatedReview=await req('/api/intents','POST',{scenario:'analise'});
   assert.ok(repeatedReview.amount>2800);
   const repeatedResult=await req(`/api/intents/${repeatedReview.id}/confirm`,'POST');
   assert.equal(repeatedResult.verdict,'EM_ANALISE');
   assert.equal((await req('/api/state')).payments.length,4);
+  const latest=(await req('/api/state')).payments[0];
+  assert.ok(latest.reasons.length>=2);
   child.kill();await new Promise(r=>child.once('exit',r));child=null;
   child=await start(dir);
   assert.equal((await req('/api/state')).payments.length,4);
