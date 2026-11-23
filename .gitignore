@@ -7,5 +7,16 @@ data/
 .env.*
 !.env.example
 *.log
+mysql/runtime/
+mysql/CONEXAO_LOCAL.txt
+mysql/03_volume_seed.sql
+entrega/GIRO_mysql_A3.sql
+entrega/GIRO_A3_pacote_pitch.zip
+output/pdf/preview_*.png
+output/pdf/check_*.png
+output/pdf/check_final_*.png
+historico/sqlite/*.sqlite3
+__pycache__/
+*.pyc
 .DS_Store
 Thumbs.db

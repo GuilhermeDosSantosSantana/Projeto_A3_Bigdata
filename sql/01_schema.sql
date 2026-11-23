@@ -17,7 +17,7 @@ CREATE TABLE IF NOT EXISTS product (
   name TEXT NOT NULL CHECK (length(trim(name)) BETWEEN 3 AND 80),
   category_id INTEGER NOT NULL REFERENCES category(id),
   supplier_id INTEGER NOT NULL REFERENCES supplier(id),
-  unit TEXT NOT NULL CHECK (unit IN ('un','kg','pct','cx')),
+  unit TEXT NOT NULL CHECK (unit IN ('un','pct','cx')),
   min_stock INTEGER NOT NULL CHECK (min_stock >= 0),
   lead_days INTEGER NOT NULL CHECK (lead_days BETWEEN 1 AND 90),
   sale_price_cents INTEGER NOT NULL CHECK (sale_price_cents >= 0),
@@ -29,7 +29,8 @@ CREATE TABLE IF NOT EXISTS batch (
   product_id INTEGER NOT NULL REFERENCES product(id),
   quantity_received INTEGER NOT NULL CHECK (quantity_received > 0),
   unit_cost_cents INTEGER NOT NULL CHECK (unit_cost_cents >= 0),
-  expires_on TEXT CHECK (expires_on IS NULL OR expires_on GLOB '????-??-??'),
+  expires_on TEXT CHECK (expires_on IS NULL OR
+                        (expires_on GLOB '????-??-??' AND date(expires_on) IS NOT NULL)),
   source_ref TEXT UNIQUE,
   received_at TEXT NOT NULL DEFAULT (datetime('now'))
 );

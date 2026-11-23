@@ -1,0 +1,643 @@
+{
+  "generated_at_utc": "2026-11-23T23:15:36.371353+00:00",
+  "database": "historico\\sqlite\\GIRO_prototipo_A3.sqlite3",
+  "sqlite_version": "3.50.4",
+  "schema_sha256": "a0faa6d1135f7ed386d03bc69af602430d93aba77fa8e53ee7257755d1ee9e9f",
+  "seed_sha256": "0c8ecfe7c920eeba2b6c273bbd3f6ab2a7d4c40ea687c2758897178c68b739d1",
+  "integrity_check": "ok",
+  "foreign_key_violations": [],
+  "table_counts": {
+    "category": 5,
+    "supplier": 4,
+    "product": 8,
+    "batch": 8,
+    "sale": 8,
+    "stock_event": 10
+  },
+  "documented_fields": 34,
+  "schema_inventory": {
+    "category": {
+      "columns": [
+        {
+          "cid": 0,
+          "name": "id",
+          "type": "INTEGER",
+          "notnull": 0,
+          "dflt_value": null,
+          "pk": 1
+        },
+        {
+          "cid": 1,
+          "name": "name",
+          "type": "TEXT",
+          "notnull": 1,
+          "dflt_value": null,
+          "pk": 0
+        },
+        {
+          "cid": 2,
+          "name": "color",
+          "type": "TEXT",
+          "notnull": 1,
+          "dflt_value": null,
+          "pk": 0
+        }
+      ],
+      "foreign_keys": [],
+      "indexes": [
+        {
+          "seq": 0,
+          "name": "sqlite_autoindex_category_1",
+          "unique": 1,
+          "origin": "u",
+          "partial": 0
+        }
+      ]
+    },
+    "supplier": {
+      "columns": [
+        {
+          "cid": 0,
+          "name": "id",
+          "type": "INTEGER",
+          "notnull": 0,
+          "dflt_value": null,
+          "pk": 1
+        },
+        {
+          "cid": 1,
+          "name": "name",
+          "type": "TEXT",
+          "notnull": 1,
+          "dflt_value": null,
+          "pk": 0
+        }
+      ],
+      "foreign_keys": [],
+      "indexes": [
+        {
+          "seq": 0,
+          "name": "sqlite_autoindex_supplier_1",
+          "unique": 1,
+          "origin": "u",
+          "partial": 0
+        }
+      ]
+    },
+    "product": {
+      "columns": [
+        {
+          "cid": 0,
+          "name": "id",
+          "type": "INTEGER",
+          "notnull": 0,
+          "dflt_value": null,
+          "pk": 1
+        },
+        {
+          "cid": 1,
+          "name": "sku",
+          "type": "TEXT",
+          "notnull": 1,
+          "dflt_value": null,
+          "pk": 0
+        },
+        {
+          "cid": 2,
+          "name": "name",
+          "type": "TEXT",
+          "notnull": 1,
+          "dflt_value": null,
+          "pk": 0
+        },
+        {
+          "cid": 3,
+          "name": "category_id",
+          "type": "INTEGER",
+          "notnull": 1,
+          "dflt_value": null,
+          "pk": 0
+        },
+        {
+          "cid": 4,
+          "name": "supplier_id",
+          "type": "INTEGER",
+          "notnull": 1,
+          "dflt_value": null,
+          "pk": 0
+        },
+        {
+          "cid": 5,
+          "name": "unit",
+          "type": "TEXT",
+          "notnull": 1,
+          "dflt_value": null,
+          "pk": 0
+        },
+        {
+          "cid": 6,
+          "name": "min_stock",
+          "type": "INTEGER",
+          "notnull": 1,
+          "dflt_value": null,
+          "pk": 0
+        },
+        {
+          "cid": 7,
+          "name": "lead_days",
+          "type": "INTEGER",
+          "notnull": 1,
+          "dflt_value": null,
+          "pk": 0
+        },
+        {
+          "cid": 8,
+          "name": "sale_price_cents",
+          "type": "INTEGER",
+          "notnull": 1,
+          "dflt_value": null,
+          "pk": 0
+        },
+        {
+          "cid": 9,
+          "name": "active",
+          "type": "INTEGER",
+          "notnull": 1,
+          "dflt_value": "1",
+          "pk": 0
+        }
+      ],
+      "foreign_keys": [
+        {
+          "id": 0,
+          "seq": 0,
+          "table": "supplier",
+          "from": "supplier_id",
+          "to": "id",
+          "on_update": "NO ACTION",
+          "on_delete": "NO ACTION",
+          "match": "NONE"
+        },
+        {
+          "id": 1,
+          "seq": 0,
+          "table": "category",
+          "from": "category_id",
+          "to": "id",
+          "on_update": "NO ACTION",
+          "on_delete": "NO ACTION",
+          "match": "NONE"
+        }
+      ],
+      "indexes": [
+        {
+          "seq": 0,
+          "name": "sqlite_autoindex_product_1",
+          "unique": 1,
+          "origin": "u",
+          "partial": 0
+        }
+      ]
+    },
+    "batch": {
+      "columns": [
+        {
+          "cid": 0,
+          "name": "id",
+          "type": "INTEGER",
+          "notnull": 0,
+          "dflt_value": null,
+          "pk": 1
+        },
+        {
+          "cid": 1,
+          "name": "product_id",
+          "type": "INTEGER",
+          "notnull": 1,
+          "dflt_value": null,
+          "pk": 0
+        },
+        {
+          "cid": 2,
+          "name": "quantity_received",
+          "type": "INTEGER",
+          "notnull": 1,
+          "dflt_value": null,
+          "pk": 0
+        },
+        {
+          "cid": 3,
+          "name": "unit_cost_cents",
+          "type": "INTEGER",
+          "notnull": 1,
+          "dflt_value": null,
+          "pk": 0
+        },
+        {
+          "cid": 4,
+          "name": "expires_on",
+          "type": "TEXT",
+          "notnull": 0,
+          "dflt_value": null,
+          "pk": 0
+        },
+        {
+          "cid": 5,
+          "name": "source_ref",
+          "type": "TEXT",
+          "notnull": 0,
+          "dflt_value": null,
+          "pk": 0
+        },
+        {
+          "cid": 6,
+          "name": "received_at",
+          "type": "TEXT",
+          "notnull": 1,
+          "dflt_value": "datetime('now')",
+          "pk": 0
+        }
+      ],
+      "foreign_keys": [
+        {
+          "id": 0,
+          "seq": 0,
+          "table": "product",
+          "from": "product_id",
+          "to": "id",
+          "on_update": "NO ACTION",
+          "on_delete": "NO ACTION",
+          "match": "NONE"
+        }
+      ],
+      "indexes": [
+        {
+          "seq": 0,
+          "name": "ix_batch_product_expiry",
+          "unique": 0,
+          "origin": "c",
+          "partial": 0
+        },
+        {
+          "seq": 1,
+          "name": "sqlite_autoindex_batch_1",
+          "unique": 1,
+          "origin": "u",
+          "partial": 0
+        }
+      ]
+    },
+    "sale": {
+      "columns": [
+        {
+          "cid": 0,
+          "name": "id",
+          "type": "INTEGER",
+          "notnull": 0,
+          "dflt_value": null,
+          "pk": 1
+        },
+        {
+          "cid": 1,
+          "name": "product_id",
+          "type": "INTEGER",
+          "notnull": 1,
+          "dflt_value": null,
+          "pk": 0
+        },
+        {
+          "cid": 2,
+          "name": "quantity",
+          "type": "INTEGER",
+          "notnull": 1,
+          "dflt_value": null,
+          "pk": 0
+        },
+        {
+          "cid": 3,
+          "name": "unit_price_cents",
+          "type": "INTEGER",
+          "notnull": 1,
+          "dflt_value": null,
+          "pk": 0
+        },
+        {
+          "cid": 4,
+          "name": "sold_at",
+          "type": "TEXT",
+          "notnull": 1,
+          "dflt_value": "datetime('now')",
+          "pk": 0
+        }
+      ],
+      "foreign_keys": [
+        {
+          "id": 0,
+          "seq": 0,
+          "table": "product",
+          "from": "product_id",
+          "to": "id",
+          "on_update": "NO ACTION",
+          "on_delete": "NO ACTION",
+          "match": "NONE"
+        }
+      ],
+      "indexes": [
+        {
+          "seq": 0,
+          "name": "ix_sale_product_date",
+          "unique": 0,
+          "origin": "c",
+          "partial": 0
+        }
+      ]
+    },
+    "stock_event": {
+      "columns": [
+        {
+          "cid": 0,
+          "name": "id",
+          "type": "INTEGER",
+          "notnull": 0,
+          "dflt_value": null,
+          "pk": 1
+        },
+        {
+          "cid": 1,
+          "name": "batch_id",
+          "type": "INTEGER",
+          "notnull": 1,
+          "dflt_value": null,
+          "pk": 0
+        },
+        {
+          "cid": 2,
+          "name": "kind",
+          "type": "TEXT",
+          "notnull": 1,
+          "dflt_value": null,
+          "pk": 0
+        },
+        {
+          "cid": 3,
+          "name": "quantity",
+          "type": "INTEGER",
+          "notnull": 1,
+          "dflt_value": null,
+          "pk": 0
+        },
+        {
+          "cid": 4,
+          "name": "sale_id",
+          "type": "INTEGER",
+          "notnull": 0,
+          "dflt_value": null,
+          "pk": 0
+        },
+        {
+          "cid": 5,
+          "name": "reason",
+          "type": "TEXT",
+          "notnull": 0,
+          "dflt_value": null,
+          "pk": 0
+        },
+        {
+          "cid": 6,
+          "name": "occurred_at",
+          "type": "TEXT",
+          "notnull": 1,
+          "dflt_value": "datetime('now')",
+          "pk": 0
+        }
+      ],
+      "foreign_keys": [
+        {
+          "id": 0,
+          "seq": 0,
+          "table": "sale",
+          "from": "sale_id",
+          "to": "id",
+          "on_update": "NO ACTION",
+          "on_delete": "NO ACTION",
+          "match": "NONE"
+        },
+        {
+          "id": 1,
+          "seq": 0,
+          "table": "batch",
+          "from": "batch_id",
+          "to": "id",
+          "on_update": "NO ACTION",
+          "on_delete": "NO ACTION",
+          "match": "NONE"
+        }
+      ],
+      "indexes": [
+        {
+          "seq": 0,
+          "name": "ix_event_date",
+          "unique": 0,
+          "origin": "c",
+          "partial": 0
+        },
+        {
+          "seq": 1,
+          "name": "ix_event_batch",
+          "unique": 0,
+          "origin": "c",
+          "partial": 0
+        }
+      ]
+    }
+  },
+  "backup": "historico\\sqlite\\GIRO_backup_A3.sqlite3",
+  "backup_integrity_check": "ok",
+  "queries": {
+    "01_reposicao": [
+      {
+        "sku": "PAO-004",
+        "name": "Pão integral",
+        "stock": 10,
+        "min_stock": 15,
+        "lead_days": 1,
+        "daily_average": 2.57,
+        "reorder_point": 15
+      },
+      {
+        "sku": "CAF-003",
+        "name": "Café torrado 500 g",
+        "stock": 8,
+        "min_stock": 10,
+        "lead_days": 6,
+        "daily_average": 1.0,
+        "reorder_point": 10
+      },
+      {
+        "sku": "BAN-007",
+        "name": "Banana prata bandeja 1 kg",
+        "stock": 18,
+        "min_stock": 18,
+        "lead_days": 2,
+        "daily_average": 1.0,
+        "reorder_point": 18
+      }
+    ],
+    "02_validade": [
+      {
+        "sku": "PAO-004",
+        "name": "Pão integral",
+        "batch_id": 4,
+        "available_quantity": 10,
+        "expires_on": "2026-11-24",
+        "days_left": 1
+      },
+      {
+        "sku": "QUE-006",
+        "name": "Queijo minas 500 g",
+        "batch_id": 6,
+        "available_quantity": 12,
+        "expires_on": "2026-11-25",
+        "days_left": 2
+      },
+      {
+        "sku": "BAN-007",
+        "name": "Banana prata bandeja 1 kg",
+        "batch_id": 7,
+        "available_quantity": 18,
+        "expires_on": "2026-11-26",
+        "days_left": 3
+      },
+      {
+        "sku": "LEI-001",
+        "name": "Leite integral 1 L",
+        "batch_id": 1,
+        "available_quantity": 19,
+        "expires_on": "2026-11-28",
+        "days_left": 5
+      }
+    ],
+    "03_vendas_diarias": [
+      {
+        "day": "2026-11-18",
+        "sales": 1,
+        "revenue_cents": 19920
+      },
+      {
+        "day": "2026-11-19",
+        "sales": 1,
+        "revenue_cents": 13230
+      },
+      {
+        "day": "2026-11-20",
+        "sales": 2,
+        "revenue_cents": 7788
+      },
+      {
+        "day": "2026-11-21",
+        "sales": 1,
+        "revenue_cents": 10950
+      },
+      {
+        "day": "2026-11-22",
+        "sales": 2,
+        "revenue_cents": 28750
+      }
+    ],
+    "04_valor_categoria": [
+      {
+        "category": "Mercearia",
+        "products": 3,
+        "value_cents": 72920
+      },
+      {
+        "category": "Frios e laticínios",
+        "products": 2,
+        "value_cents": 27460
+      },
+      {
+        "category": "Padaria",
+        "products": 1,
+        "value_cents": 7600
+      },
+      {
+        "category": "Hortifruti",
+        "products": 1,
+        "value_cents": 7380
+      },
+      {
+        "category": "Limpeza",
+        "products": 1,
+        "value_cents": 7200
+      }
+    ],
+    "05_giro_produto": [
+      {
+        "sku": "PAO-004",
+        "name": "Pão integral",
+        "stock": 10,
+        "daily_average": 2.57,
+        "coverage_days": 3.9
+      },
+      {
+        "sku": "CAF-003",
+        "name": "Café torrado 500 g",
+        "stock": 8,
+        "daily_average": 1.0,
+        "coverage_days": 8.0
+      },
+      {
+        "sku": "LEI-001",
+        "name": "Leite integral 1 L",
+        "stock": 19,
+        "daily_average": 1.29,
+        "coverage_days": 14.8
+      },
+      {
+        "sku": "QUE-006",
+        "name": "Queijo minas 500 g",
+        "stock": 12,
+        "daily_average": 0.71,
+        "coverage_days": 16.8
+      },
+      {
+        "sku": "BAN-007",
+        "name": "Banana prata bandeja 1 kg",
+        "stock": 18,
+        "daily_average": 1.0,
+        "coverage_days": 18.0
+      },
+      {
+        "sku": "ARR-002",
+        "name": "Arroz branco 5 kg",
+        "stock": 28,
+        "daily_average": 1.14,
+        "coverage_days": 24.5
+      },
+      {
+        "sku": "ACU-008",
+        "name": "Açúcar cristal 1 kg",
+        "stock": 39,
+        "daily_average": 0.43,
+        "coverage_days": 91.0
+      }
+    ],
+    "06_perdas": [
+      {
+        "sku": "QUE-006",
+        "name": "Queijo minas 500 g",
+        "reason": "Embalagem danificada",
+        "lost_quantity": 1,
+        "lost_cost_cents": 1560
+      },
+      {
+        "sku": "PAO-004",
+        "name": "Pão integral",
+        "reason": "Avaria no transporte",
+        "lost_quantity": 2,
+        "lost_cost_cents": 1520
+      }
+    ],
+    "07_qualidade": []
+  }
+}

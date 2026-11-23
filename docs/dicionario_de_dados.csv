@@ -1,0 +1,35 @@
+tabela;campo;tipo;descricao;regra
+category;id;INTEGER;Identificador da categoria;PK
+category;name;TEXT;Nome comercial da categoria;Obrigatório e único
+category;color;TEXT;Cor de exibição;Obrigatório e comprimento 7
+supplier;id;INTEGER;Identificador do fornecedor;PK
+supplier;name;TEXT;Nome do fornecedor fictício;Obrigatório e único
+product;id;INTEGER;Identificador do produto;PK
+product;sku;TEXT;Código comercial do produto;Obrigatório e único
+product;name;TEXT;Descrição do produto;Obrigatório e 3 a 80 caracteres
+product;category_id;INTEGER;Categoria do produto;FK category.id obrigatória
+product;supplier_id;INTEGER;Fornecedor do produto;FK supplier.id obrigatória
+product;unit;TEXT;Unidade de estoque;un ou pct ou cx
+product;min_stock;INTEGER;Piso mínimo cadastrado;Inteiro não negativo
+product;lead_days;INTEGER;Prazo de entrega do fornecedor;Inteiro de 1 a 90 dias
+product;sale_price_cents;INTEGER;Preço atual por unidade em centavos;Inteiro não negativo
+product;active;INTEGER;Produto ativo no catálogo;0 ou 1 e padrão 1
+batch;id;INTEGER;Identificador do lote de entrada;PK
+batch;product_id;INTEGER;Produto recebido;FK product.id obrigatória
+batch;quantity_received;INTEGER;Quantidade recebida;Inteiro positivo
+batch;unit_cost_cents;INTEGER;Custo unitário no recebimento em centavos;Inteiro não negativo
+batch;expires_on;TEXT;Data de validade ISO 8601;Opcional e validada pela API
+batch;source_ref;TEXT;Referência da nota ou entrada;Opcional e única
+batch;received_at;TEXT;Instante UTC da entrada;Obrigatório e padrão datetime now
+sale;id;INTEGER;Identificador da venda;PK
+sale;product_id;INTEGER;Produto vendido;FK product.id obrigatória
+sale;quantity;INTEGER;Quantidade vendida;Inteiro positivo
+sale;unit_price_cents;INTEGER;Preço unitário registrado na venda;Inteiro não negativo e imutável na aplicação
+sale;sold_at;TEXT;Instante UTC da venda;Obrigatório e padrão datetime now
+stock_event;id;INTEGER;Identificador do evento de baixa;PK
+stock_event;batch_id;INTEGER;Lote consumido;FK batch.id obrigatória
+stock_event;kind;TEXT;Natureza da baixa;SALE ou LOSS
+stock_event;quantity;INTEGER;Quantidade baixada do lote;Inteiro positivo e gatilho impede saldo negativo
+stock_event;sale_id;INTEGER;Venda que gerou a baixa;FK sale.id obrigatória em SALE e nula em LOSS
+stock_event;reason;TEXT;Motivo da perda;Obrigatório em LOSS e nulo em SALE
+stock_event;occurred_at;TEXT;Instante UTC da baixa;Obrigatório e padrão datetime now

@@ -5,7 +5,7 @@ from __future__ import annotations
 import math
 import sqlite3
 from contextlib import contextmanager
-from datetime import date, timedelta
+from datetime import date, datetime, timedelta, timezone
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -121,8 +121,8 @@ def dashboard() -> dict:
                 "stock_value_cents": sum(p["stock_value_cents"] for p in products),
                 "products_at_risk": sum(p["alert"] != "ok" for p in products),
                 "expiring_lots_7d": sum(
-                    bool(b["expires_on"]) and date.today().isoformat() <= b["expires_on"]
-                    <= (date.today() + timedelta(days=7)).isoformat()
+                    bool(b["expires_on"]) and datetime.now(timezone.utc).date().isoformat() <= b["expires_on"]
+                    <= (datetime.now(timezone.utc).date() + timedelta(days=7)).isoformat()
                     for b in batches
                 ),
                 "revenue_7d_cents": sum(item["revenue_cents"] for item in trend),
@@ -161,7 +161,7 @@ def add_product(data: dict) -> int:
     unit = str(data.get("unit", "")).strip()
     if not 3 <= len(sku) <= 24 or not 3 <= len(name) <= 80:
         raise ValueError("Informe SKU e nome com pelo menos 3 caracteres")
-    if unit not in {"un", "kg", "pct", "cx"}:
+    if unit not in {"un", "pct", "cx"}:
         raise ValueError("Unidade inválida")
     with database() as conn:
         cursor = conn.execute("""
@@ -187,7 +187,7 @@ def add_receipt(data: dict) -> int:
             expiry = date.fromisoformat(str(expires_on))
         except ValueError:
             raise ValueError("Validade deve estar em AAAA-MM-DD") from None
-        if expiry < date.today():
+        if expiry < datetime.now(timezone.utc).date():
             raise ValueError("Não é permitido entrar lote já vencido")
         expires_on = expiry.isoformat()
     source_ref = str(data.get("source_ref", "")).strip() or None
@@ -213,15 +213,16 @@ def _consume(product_id: int, quantity: int, kind: str, reason: str | None) -> i
         ).fetchone()
         if not product:
             raise ValueError("Produto não encontrado")
-        batches = _rows(conn, """
+        expiry_filter = "AND (expires_on IS NULL OR date(expires_on) >= date('now'))" if kind == "SALE" else ""
+        batches = _rows(conn, f"""
             SELECT id, available_quantity FROM batch_balance
             WHERE product_id = ? AND available_quantity > 0
-              AND (expires_on IS NULL OR date(expires_on) >= date('now'))
+              {expiry_filter}
             ORDER BY CASE WHEN expires_on IS NULL THEN 1 ELSE 0 END,
                      expires_on, received_at, id
         """, (product_id,))
         if sum(b["available_quantity"] for b in batches) < quantity:
-            raise ValueError("Estoque disponível insuficiente; lotes vencidos não podem ser usados")
+            raise ValueError("Estoque disponível insuficiente; venda não pode usar lote vencido")
         sale_id = None
         if kind == "SALE":
             sale_id = conn.execute(

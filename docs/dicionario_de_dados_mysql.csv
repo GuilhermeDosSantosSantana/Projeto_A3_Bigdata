@@ -1,0 +1,39 @@
+tabela;campo;tipo_mysql;permite_nulo;chave;descricao;regra
+batch;id;bigint;NO;PRI;Identificador do lote de entrada;PK
+batch;product_id;bigint;NO;MUL;Produto recebido;FK product.id obrigatória
+batch;quantity_received;int;NO;;Quantidade recebida;Inteiro positivo
+batch;unit_cost_cents;int;NO;;Custo unitário no recebimento em centavos;Inteiro não negativo
+batch;expires_on;date;YES;;Data de validade ISO 8601;Opcional e validada pela API
+batch;source_ref;varchar(80);YES;UNI;Referência da nota ou entrada;Opcional e única
+batch;received_at;datetime;NO;;Instante UTC da entrada;Obrigatório e padrão datetime now
+category;id;bigint;NO;PRI;Identificador da categoria;PK
+category;name;varchar(80);NO;UNI;Nome comercial da categoria;Obrigatório e único
+category;color;char(7);NO;;Cor de exibição;Obrigatório e comprimento 7
+customer;id;bigint;NO;PRI;Identificador do cliente ficticio;PK
+customer;code;varchar(20);NO;UNI;Codigo ficticio do cliente;Obrigatorio e unico
+customer;name;varchar(80);NO;;Nome de demonstracao sem dado pessoal;Obrigatorio e 3 a 80 caracteres
+product;id;bigint;NO;PRI;Identificador do produto;PK
+product;sku;varchar(30);NO;UNI;Código comercial do produto;Obrigatório e único
+product;name;varchar(80);NO;;Descrição do produto;Obrigatório e 3 a 80 caracteres
+product;category_id;bigint;NO;MUL;Categoria do produto;FK category.id obrigatória
+product;supplier_id;bigint;NO;MUL;Fornecedor do produto;FK supplier.id obrigatória
+product;unit;varchar(3);NO;;Unidade de estoque;un ou pct ou cx
+product;min_stock;int;NO;;Piso mínimo cadastrado;Inteiro não negativo
+product;lead_days;int;NO;;Prazo de entrega do fornecedor;Inteiro de 1 a 90 dias
+product;sale_price_cents;int;NO;;Preço atual por unidade em centavos;Inteiro não negativo
+product;active;tinyint(1);NO;;Produto ativo no catálogo;0 ou 1 e padrão 1
+sale;id;bigint;NO;PRI;Identificador da venda;PK
+sale;product_id;bigint;NO;MUL;Produto vendido;FK product.id obrigatória
+sale;customer_id;bigint;YES;MUL;Cliente ficticio da venda;FK customer.id opcional para venda anonima
+sale;quantity;int;NO;;Quantidade vendida;Inteiro positivo
+sale;unit_price_cents;int;NO;;Preço unitário registrado na venda;Inteiro não negativo e imutável na aplicação
+sale;sold_at;datetime;NO;;Instante UTC da venda;Obrigatório e padrão datetime now
+stock_event;id;bigint;NO;PRI;Identificador do evento de baixa;PK
+stock_event;batch_id;bigint;NO;MUL;Lote consumido;FK batch.id obrigatória
+stock_event;kind;varchar(4);NO;;Natureza da baixa;SALE ou LOSS
+stock_event;quantity;int;NO;;Quantidade baixada do lote;Inteiro positivo e gatilho impede saldo negativo
+stock_event;sale_id;bigint;YES;MUL;Venda que gerou a baixa;FK sale.id obrigatória em SALE e nula em LOSS
+stock_event;reason;varchar(120);YES;;Motivo da perda;Obrigatório em LOSS e nulo em SALE
+stock_event;occurred_at;datetime;NO;MUL;Instante UTC da baixa;Obrigatório e padrão datetime now
+supplier;id;bigint;NO;PRI;Identificador do fornecedor;PK
+supplier;name;varchar(80);NO;UNI;Nome do fornecedor fictício;Obrigatório e único

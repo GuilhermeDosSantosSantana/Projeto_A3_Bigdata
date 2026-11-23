@@ -132,7 +132,7 @@ function openDialog(action, selectedProduct = null) {
     fields = field('SKU', 'sku', '<input NAME required minlength="3" maxlength="24" placeholder="Ex.: BOL-009">')
       + field('Nome do produto', 'name', '<input NAME required minlength="3" maxlength="80" placeholder="Ex.: Bolo integral">')
       + `<div class="field-row">${field('Categoria', 'category_id', `<select NAME required>${options(state.data.categories)}</select>`)}${field('Fornecedor', 'supplier_id', `<select NAME required>${options(state.data.suppliers)}</select>`)}</div>`
-      + `<div class="field-row">${field('Unidade', 'unit', '<select NAME><option value="un">Unidade</option><option value="kg">Quilo</option><option value="pct">Pacote</option><option value="cx">Caixa</option></select>')}${field('Estoque mínimo', 'min_stock', '<input NAME type="number" min="0" max="100000" step="1" value="10" required>')}</div>`
+      + `<div class="field-row">${field('Unidade', 'unit', '<select NAME><option value="un">Unidade</option><option value="pct">Pacote</option><option value="cx">Caixa</option></select>')}${field('Estoque mínimo', 'min_stock', '<input NAME type="number" min="0" max="100000" step="1" value="10" required>')}</div>`
       + `<div class="field-row">${field('Prazo do fornecedor (dias)', 'lead_days', '<input NAME type="number" min="1" max="90" step="1" value="3" required>')}${field('Preço de venda (R$)', 'sale_price', '<input NAME type="number" min="0" step="0.01" value="9.90" required>')}</div>`;
   } else if (action === 'receipt') {
     fields = productSelect + `<div class="field-row">${qty}${field('Custo unitário (R$)', 'unit_cost', '<input NAME type="number" min="0" step="0.01" value="5.00" required>')}</div>`

@@ -71,6 +71,18 @@ class StockTests(unittest.TestCase):
                 conn.execute("INSERT INTO stock_event(batch_id,kind,quantity,reason) VALUES (?,?,?,?)",
                              (batch_id, "LOSS", 3, "Avaria de teste"))
 
+    def test_lote_vencido_nao_pode_ser_vendido_mas_pode_ter_baixa(self):
+        with db.database() as conn:
+            conn.execute("INSERT INTO batch(product_id,quantity_received,unit_cost_cents,expires_on) VALUES (?,?,?,?)",
+                         (self.product_id, 2, 400, (date.today() - timedelta(days=1)).isoformat()))
+        with self.assertRaisesRegex(ValueError, "insuficiente"):
+            db.add_sale({"product_id": self.product_id, "quantity": 1})
+        db.add_loss({"product_id": self.product_id, "quantity": 2, "reason": "Validade expirada"})
+        with db.database() as conn:
+            remaining = conn.execute("SELECT SUM(available_quantity) FROM batch_balance WHERE product_id = ?",
+                                     (self.product_id,)).fetchone()[0]
+        self.assertEqual(remaining, 0)
+
 
 if __name__ == "__main__":
     unittest.main()

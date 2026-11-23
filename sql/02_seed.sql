@@ -18,7 +18,7 @@ INSERT INTO product(id,sku,name,category_id,supplier_id,unit,min_stock,lead_days
  (4,'PAO-004','Pão integral',3,4,'un',15,1,1290),
  (5,'DET-005','Detergente neutro',5,1,'un',8,7,399),
  (6,'QUE-006','Queijo minas 500 g',2,2,'un',10,3,2190),
- (7,'BAN-007','Banana prata',4,3,'kg',18,2,790),
+ (7,'BAN-007','Banana prata bandeja 1 kg',4,3,'pct',18,2,790),
  (8,'ACU-008','Açúcar cristal 1 kg',1,1,'pct',12,5,499);
 
 INSERT INTO batch(id,product_id,quantity_received,unit_cost_cents,expires_on,source_ref,received_at) VALUES
