@@ -1,0 +1,18 @@
+<!doctype html>
+<html lang="pt-BR">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>CONFIA · Teste local</title><link rel="stylesheet" href="/style.css"></head>
+<body>
+ <header><div><strong class="logo">CONFIA</strong><span class="tag">Ambiente local · pagamentos simulados</span></div><small>Teste de confirmação de Pix recebido</small></header>
+ <main>
+  <section class="hero"><p class="eyebrow">PAINEL DO LOJISTA</p><h1>Confirme o Pix antes da entrega.</h1><p>Crie um pagamento fictício, confirme-o no provedor simulado e veja a decisão registrada no banco.</p></section>
+  <div class="grid">
+   <section class="panel"><h2>1. Criar pagamento</h2><p>Escolha um cenário para testar o fluxo.</p>
+    <label for="scenario">Cenário</label><select id="scenario"><option value="aprovado">Pagamento comum · R$ 42,50</option><option value="analise">Valor acima do perfil atual · calculado na hora</option><option value="recusado">Histórico de contestação · R$ 2.800,00</option></select>
+    <button id="create">Criar pagamento fictício</button><div id="created" class="result hidden" aria-live="polite"></div>
+   </section>
+   <section class="panel"><h2>2. Confirmar recebimento</h2><p>O banco só registra o Pix após a confirmação no provedor simulado.</p><div id="pending" class="empty">Crie um pagamento para continuar.</div><button id="confirm" class="secondary hidden">Confirmar no provedor simulado</button><div id="verdict" class="result hidden" aria-live="polite"></div></section>
+  </div>
+  <section class="panel history"><div class="row"><div><h2>Pagamentos desta demonstração</h2><p>Registros persistidos em PostgreSQL local.</p></div><button id="refresh" class="ghost">Atualizar</button></div><div id="history" class="empty">Carregando...</div></section>
+  <p class="footnote">Este teste não movimenta dinheiro, não consulta o Asaas e não usa dados pessoais reais. O provedor local simula a confirmação; a API reconsulta seu estado antes de gravar o pagamento.</p>
+ </main><script src="/app.js"></script>
+</body></html>

@@ -30,3 +30,4 @@ desktop.ini
 # Artefatos temporarios da geracao do pitch
 .pitch-build/
 scripts/node_modules/
+data/

@@ -12,6 +12,11 @@
 > com Asaas e o aplicativo em tempo real não fazem parte desta prova de conceito.
 > Consulte `README.md` para reprodução. A seção 6 registra pendências históricas
 > do plano de produto, não bloqueios da entrega da A3.
+>
+> **Teste funcional acrescentado:** front em `app/public/`, API em `app/server.mjs`,
+> PostgreSQL local persistido em `data/postgres/` e provedor simulado em `data/`.
+> `npm start` abre o sistema em `http://127.0.0.1:3000`; `npm test` cobre os três
+> vereditos, reenvio idempotente e persistência após reinício. Não há Pix real.
 
 > Este documento existe para você retomar o projeto sem refazer nada e sem repetir discussão já
 > encerrada. Leia a seção 3 antes de propor qualquer mudança de rumo — ela registra o que já foi
