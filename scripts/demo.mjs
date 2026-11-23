@@ -7,7 +7,8 @@ const sql = async (file) => readFile(join(process.cwd(),file),'utf8');
 await db.exec(await sql('sql/01_schema.sql'));
 await db.exec(await sql('sql/02_amostra.sql'));
 const evidence = { engine: 'PGlite (PostgreSQL em WebAssembly)', sample: {}, queries: {} };
-evidence.dictionary=(await db.query(`SELECT table_name,column_name,data_type,is_nullable,column_default
+evidence.dictionary=(await db.query(`SELECT table_name,column_name,data_type,is_nullable,column_default,
+ character_maximum_length,numeric_precision,numeric_scale
  FROM information_schema.columns WHERE table_schema='public' ORDER BY table_name,ordinal_position`)).rows;
 for (const table of ['lojista','pagador','pagamento','regra','analise_risco','sinal_apurado','alerta','desfecho','devolucao','ingestao_webhook']) {
   evidence.sample[table] = Number((await db.query(`SELECT count(*)::int AS n FROM ${table}`)).rows[0].n);

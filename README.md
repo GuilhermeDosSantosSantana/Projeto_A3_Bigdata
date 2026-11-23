@@ -44,6 +44,7 @@ Todos os dados são sintéticos. A amostra SQL histórica usa marcadores repetid
 - `evidencias/tela-lojista-retida.png`: tela do lojista com decisão de entrega e motivos.
 - `output/pdf/CONFIA_relatorio_A3.pdf`: relatório para entrega.
 - `PITCH.md`: roteiro curto para apresentação.
+- `DEFESA_A3.md`: conferência da rubrica, explicação oral, perguntas prováveis e prioridades finais.
 - `output/CONFIA_pitch_A3.pptx`: apresentação editável de seis slides.
 
 Antes de entregar, incluir nomes do grupo no PDF e conferir a duração definida pela professora, pois o enunciado deixa esses campos em branco.

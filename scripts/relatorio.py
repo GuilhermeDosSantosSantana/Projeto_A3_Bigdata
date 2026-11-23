@@ -47,7 +47,7 @@ P('KPIs propostos: taxa de perdas confirmadas por valor recebido; precisão por 
 H('2. Diagnóstico dos dados')
 P('Fontes previstas: eventos e reconsulta à API do provedor de pagamentos, cadastro do lojista, decisões de analistas e contestações posteriores. O evento bruto é semiestruturado (JSONB); pagamentos, contas, análises, sinais e desfechos são estruturados. O protótipo usa fixtures sintéticas e não faz chamadas ao provedor.')
 tbl(['V','Diagnóstico e implicação'],[
-('Volume','Hipótese de projeto: 50 lojas, cerca de 2,2 milhões de pagamentos/ano e 9 sinais por pagamento; testar carga antes de dimensionar infraestrutura.'),
+('Volume','Hipótese de projeto: 50 lojas, cerca de 2,2 milhões de pagamentos/ano (aproximadamente 183 mil/mês) e 9 sinais por pagamento; testar carga antes de dimensionar infraestrutura.'),
 ('Velocidade','Eventos chegam continuamente e a decisão de entrega precisa ser rápida; índices por pagador, conta e tempo atendem o caminho operacional.'),
 ('Variedade','JSONB preserva formatos variáveis do evento; o modelo canônico relacional estabiliza a análise.'),
 ('Veracidade','Webhook isolado não prova liquidação; a arquitetura exige reconsulta ao provedor antes de decidir. Unicidade evita duplicação.'),
@@ -107,14 +107,32 @@ field_desc={'id_lojista':'Identificador da loja','id_usuario':'Identificador do 
 from collections import defaultdict
 cols=defaultdict(list)
 for c in data['dictionary']: cols[c['table_name']].append(c)
+pk_fields={'conta_recebedora':'id_conta','ingestao_webhook':'id_ingestao','cobranca_esperada':'id_cobranca','analise_risco':'id_analise','sinal_apurado':'id_sinal'}
+unique_rules={
+ ('lojista','cnpj_hash'):'UNIQUE',('usuario','email'):'UNIQUE',
+ ('conta_recebedora','chave_pix_hash'):'UNIQUE',
+ ('pagador','documento_hash'):'UNIQUE com id_lojista',
+ ('pagamento','end_to_end_id'):'UNIQUE com psp',
+ ('cobranca_esperada','txid'):'UNIQUE com id_conta',
+ ('regra','codigo'):'UNIQUE com versao',
+ ('analise_risco','id_pagamento'):'UNIQUE',
+ ('sinal_apurado','id_regra'):'UNIQUE com id_analise',
+ ('alerta','id_analise'):'UNIQUE',('desfecho','id_alerta'):'UNIQUE'
+}
 for name in table_desc:
     H2(name+' — '+table_desc[name])
     rows=[]
     for c in cols[name]:
         f=c['column_name'];typ=c['data_type'];desc=field_desc.get(f,f.replace('_',' ').capitalize())
+        if typ=='character' and c.get('character_maximum_length'): typ=f"CHAR({c['character_maximum_length']})"
+        elif typ=='numeric' and c.get('numeric_precision'): typ=f"NUMERIC({c['numeric_precision']},{c['numeric_scale']})"
+        elif typ=='timestamp with time zone': typ='TIMESTAMPTZ'
+        elif typ=='time without time zone': typ='TIME'
+        else: typ=typ.upper()
         rules=[]
-        if f==f'id_{name}' or (name=='conta_recebedora' and f=='id_conta') or (name=='analise_risco' and f=='id_analise') or (name=='ingestao_webhook' and f=='id_ingestao'): rules.append('PK')
+        if f==pk_fields.get(name,f'id_{name}'): rules.append('PK')
         elif f.startswith('id_') and f!='id_entidade': rules.append('FK; ver DDL')
+        if (name,f) in unique_rules: rules.append(unique_rules[(name,f)])
         if c['is_nullable']=='NO': rules.append('obrigatório')
         if f.endswith('_hash'): rules.append('hash; ver DDL')
         if f in ('score','valor','valor_esperado','peso','contribuicao','latencia_ms','qtd_pagamentos','qtd_contestacoes'): rules.append('CHECK de faixa/positividade')

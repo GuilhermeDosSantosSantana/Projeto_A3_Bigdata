@@ -266,714 +266,1020 @@
       "column_name": "id_alerta",
       "data_type": "bigint",
       "is_nullable": "NO",
-      "column_default": null
+      "column_default": null,
+      "character_maximum_length": null,
+      "numeric_precision": 64,
+      "numeric_scale": 0
     },
     {
       "table_name": "alerta",
       "column_name": "id_analise",
       "data_type": "bigint",
       "is_nullable": "NO",
-      "column_default": null
+      "column_default": null,
+      "character_maximum_length": null,
+      "numeric_precision": 64,
+      "numeric_scale": 0
     },
     {
       "table_name": "alerta",
       "column_name": "situacao",
       "data_type": "text",
       "is_nullable": "NO",
-      "column_default": null
+      "column_default": null,
+      "character_maximum_length": null,
+      "numeric_precision": null,
+      "numeric_scale": null
     },
     {
       "table_name": "alerta",
       "column_name": "aberto_em",
       "data_type": "timestamp with time zone",
       "is_nullable": "NO",
-      "column_default": null
+      "column_default": null,
+      "character_maximum_length": null,
+      "numeric_precision": null,
+      "numeric_scale": null
     },
     {
       "table_name": "alerta",
       "column_name": "fechado_em",
       "data_type": "timestamp with time zone",
       "is_nullable": "YES",
-      "column_default": null
+      "column_default": null,
+      "character_maximum_length": null,
+      "numeric_precision": null,
+      "numeric_scale": null
     },
     {
       "table_name": "analise_risco",
       "column_name": "id_analise",
       "data_type": "bigint",
       "is_nullable": "NO",
-      "column_default": null
+      "column_default": null,
+      "character_maximum_length": null,
+      "numeric_precision": 64,
+      "numeric_scale": 0
     },
     {
       "table_name": "analise_risco",
       "column_name": "id_pagamento",
       "data_type": "bigint",
       "is_nullable": "NO",
-      "column_default": null
+      "column_default": null,
+      "character_maximum_length": null,
+      "numeric_precision": 64,
+      "numeric_scale": 0
     },
     {
       "table_name": "analise_risco",
       "column_name": "veredito",
       "data_type": "text",
       "is_nullable": "NO",
-      "column_default": null
+      "column_default": null,
+      "character_maximum_length": null,
+      "numeric_precision": null,
+      "numeric_scale": null
     },
     {
       "table_name": "analise_risco",
       "column_name": "score",
       "data_type": "smallint",
       "is_nullable": "NO",
-      "column_default": null
+      "column_default": null,
+      "character_maximum_length": null,
+      "numeric_precision": 16,
+      "numeric_scale": 0
     },
     {
       "table_name": "analise_risco",
       "column_name": "degradada",
       "data_type": "boolean",
       "is_nullable": "NO",
-      "column_default": "false"
+      "column_default": "false",
+      "character_maximum_length": null,
+      "numeric_precision": null,
+      "numeric_scale": null
     },
     {
       "table_name": "analise_risco",
       "column_name": "latencia_ms",
       "data_type": "integer",
       "is_nullable": "NO",
-      "column_default": null
+      "column_default": null,
+      "character_maximum_length": null,
+      "numeric_precision": 32,
+      "numeric_scale": 0
     },
     {
       "table_name": "analise_risco",
       "column_name": "versao_catalogo",
       "data_type": "integer",
       "is_nullable": "NO",
-      "column_default": null
+      "column_default": null,
+      "character_maximum_length": null,
+      "numeric_precision": 32,
+      "numeric_scale": 0
     },
     {
       "table_name": "analise_risco",
       "column_name": "analisado_em",
       "data_type": "timestamp with time zone",
       "is_nullable": "NO",
-      "column_default": "now()"
+      "column_default": "now()",
+      "character_maximum_length": null,
+      "numeric_precision": null,
+      "numeric_scale": null
     },
     {
       "table_name": "auditoria",
       "column_name": "id_auditoria",
       "data_type": "bigint",
       "is_nullable": "NO",
-      "column_default": null
+      "column_default": null,
+      "character_maximum_length": null,
+      "numeric_precision": 64,
+      "numeric_scale": 0
     },
     {
       "table_name": "auditoria",
       "column_name": "id_lojista",
       "data_type": "bigint",
       "is_nullable": "NO",
-      "column_default": null
+      "column_default": null,
+      "character_maximum_length": null,
+      "numeric_precision": 64,
+      "numeric_scale": 0
     },
     {
       "table_name": "auditoria",
       "column_name": "entidade",
       "data_type": "text",
       "is_nullable": "NO",
-      "column_default": null
+      "column_default": null,
+      "character_maximum_length": null,
+      "numeric_precision": null,
+      "numeric_scale": null
     },
     {
       "table_name": "auditoria",
       "column_name": "id_entidade",
       "data_type": "bigint",
       "is_nullable": "NO",
-      "column_default": null
+      "column_default": null,
+      "character_maximum_length": null,
+      "numeric_precision": 64,
+      "numeric_scale": 0
     },
     {
       "table_name": "auditoria",
       "column_name": "acao",
       "data_type": "text",
       "is_nullable": "NO",
-      "column_default": null
+      "column_default": null,
+      "character_maximum_length": null,
+      "numeric_precision": null,
+      "numeric_scale": null
     },
     {
       "table_name": "auditoria",
       "column_name": "ator",
       "data_type": "text",
       "is_nullable": "NO",
-      "column_default": null
+      "column_default": null,
+      "character_maximum_length": null,
+      "numeric_precision": null,
+      "numeric_scale": null
     },
     {
       "table_name": "auditoria",
       "column_name": "payload_hash",
       "data_type": "character",
       "is_nullable": "NO",
-      "column_default": null
+      "column_default": null,
+      "character_maximum_length": 64,
+      "numeric_precision": null,
+      "numeric_scale": null
     },
     {
       "table_name": "auditoria",
       "column_name": "hash_anterior",
       "data_type": "character",
       "is_nullable": "YES",
-      "column_default": null
+      "column_default": null,
+      "character_maximum_length": 64,
+      "numeric_precision": null,
+      "numeric_scale": null
     },
     {
       "table_name": "auditoria",
       "column_name": "ocorrido_em",
       "data_type": "timestamp with time zone",
       "is_nullable": "NO",
-      "column_default": "now()"
+      "column_default": "now()",
+      "character_maximum_length": null,
+      "numeric_precision": null,
+      "numeric_scale": null
     },
     {
       "table_name": "cobranca_esperada",
       "column_name": "id_cobranca",
       "data_type": "bigint",
       "is_nullable": "NO",
-      "column_default": null
+      "column_default": null,
+      "character_maximum_length": null,
+      "numeric_precision": 64,
+      "numeric_scale": 0
     },
     {
       "table_name": "cobranca_esperada",
       "column_name": "id_conta",
       "data_type": "bigint",
       "is_nullable": "NO",
-      "column_default": null
+      "column_default": null,
+      "character_maximum_length": null,
+      "numeric_precision": 64,
+      "numeric_scale": 0
     },
     {
       "table_name": "cobranca_esperada",
       "column_name": "txid",
       "data_type": "text",
       "is_nullable": "NO",
-      "column_default": null
+      "column_default": null,
+      "character_maximum_length": null,
+      "numeric_precision": null,
+      "numeric_scale": null
     },
     {
       "table_name": "cobranca_esperada",
       "column_name": "valor_esperado",
       "data_type": "numeric",
       "is_nullable": "NO",
-      "column_default": null
+      "column_default": null,
+      "character_maximum_length": null,
+      "numeric_precision": 12,
+      "numeric_scale": 2
     },
     {
       "table_name": "cobranca_esperada",
       "column_name": "referencia_pedido",
       "data_type": "text",
       "is_nullable": "NO",
-      "column_default": null
+      "column_default": null,
+      "character_maximum_length": null,
+      "numeric_precision": null,
+      "numeric_scale": null
     },
     {
       "table_name": "cobranca_esperada",
       "column_name": "expira_em",
       "data_type": "timestamp with time zone",
       "is_nullable": "NO",
-      "column_default": null
+      "column_default": null,
+      "character_maximum_length": null,
+      "numeric_precision": null,
+      "numeric_scale": null
     },
     {
       "table_name": "conta_recebedora",
       "column_name": "id_conta",
       "data_type": "bigint",
       "is_nullable": "NO",
-      "column_default": null
+      "column_default": null,
+      "character_maximum_length": null,
+      "numeric_precision": 64,
+      "numeric_scale": 0
     },
     {
       "table_name": "conta_recebedora",
       "column_name": "id_lojista",
       "data_type": "bigint",
       "is_nullable": "NO",
-      "column_default": null
+      "column_default": null,
+      "character_maximum_length": null,
+      "numeric_precision": 64,
+      "numeric_scale": 0
     },
     {
       "table_name": "conta_recebedora",
       "column_name": "chave_pix_hash",
       "data_type": "character",
       "is_nullable": "NO",
-      "column_default": null
+      "column_default": null,
+      "character_maximum_length": 64,
+      "numeric_precision": null,
+      "numeric_scale": null
     },
     {
       "table_name": "conta_recebedora",
       "column_name": "apelido",
       "data_type": "text",
       "is_nullable": "NO",
-      "column_default": null
+      "column_default": null,
+      "character_maximum_length": null,
+      "numeric_precision": null,
+      "numeric_scale": null
     },
     {
       "table_name": "conta_recebedora",
       "column_name": "canal_padrao",
       "data_type": "text",
       "is_nullable": "NO",
-      "column_default": null
+      "column_default": null,
+      "character_maximum_length": null,
+      "numeric_precision": null,
+      "numeric_scale": null
     },
     {
       "table_name": "desfecho",
       "column_name": "id_desfecho",
       "data_type": "bigint",
       "is_nullable": "NO",
-      "column_default": null
+      "column_default": null,
+      "character_maximum_length": null,
+      "numeric_precision": 64,
+      "numeric_scale": 0
     },
     {
       "table_name": "desfecho",
       "column_name": "id_alerta",
       "data_type": "bigint",
       "is_nullable": "NO",
-      "column_default": null
+      "column_default": null,
+      "character_maximum_length": null,
+      "numeric_precision": 64,
+      "numeric_scale": 0
     },
     {
       "table_name": "desfecho",
       "column_name": "rotulo",
       "data_type": "text",
       "is_nullable": "NO",
-      "column_default": null
+      "column_default": null,
+      "character_maximum_length": null,
+      "numeric_precision": null,
+      "numeric_scale": null
     },
     {
       "table_name": "desfecho",
       "column_name": "justificativa",
       "data_type": "text",
       "is_nullable": "NO",
-      "column_default": null
+      "column_default": null,
+      "character_maximum_length": null,
+      "numeric_precision": null,
+      "numeric_scale": null
     },
     {
       "table_name": "desfecho",
       "column_name": "registrado_em",
       "data_type": "timestamp with time zone",
       "is_nullable": "NO",
-      "column_default": null
+      "column_default": null,
+      "character_maximum_length": null,
+      "numeric_precision": null,
+      "numeric_scale": null
     },
     {
       "table_name": "devolucao",
       "column_name": "id_devolucao",
       "data_type": "bigint",
       "is_nullable": "NO",
-      "column_default": null
+      "column_default": null,
+      "character_maximum_length": null,
+      "numeric_precision": 64,
+      "numeric_scale": 0
     },
     {
       "table_name": "devolucao",
       "column_name": "id_pagamento",
       "data_type": "bigint",
       "is_nullable": "NO",
-      "column_default": null
+      "column_default": null,
+      "character_maximum_length": null,
+      "numeric_precision": 64,
+      "numeric_scale": 0
     },
     {
       "table_name": "devolucao",
       "column_name": "origem",
       "data_type": "text",
       "is_nullable": "NO",
-      "column_default": null
+      "column_default": null,
+      "character_maximum_length": null,
+      "numeric_precision": null,
+      "numeric_scale": null
     },
     {
       "table_name": "devolucao",
       "column_name": "valor",
       "data_type": "numeric",
       "is_nullable": "NO",
-      "column_default": null
+      "column_default": null,
+      "character_maximum_length": null,
+      "numeric_precision": 12,
+      "numeric_scale": 2
     },
     {
       "table_name": "devolucao",
       "column_name": "situacao",
       "data_type": "text",
       "is_nullable": "NO",
-      "column_default": null
+      "column_default": null,
+      "character_maximum_length": null,
+      "numeric_precision": null,
+      "numeric_scale": null
     },
     {
       "table_name": "devolucao",
       "column_name": "solicitada_em",
       "data_type": "timestamp with time zone",
       "is_nullable": "NO",
-      "column_default": null
+      "column_default": null,
+      "character_maximum_length": null,
+      "numeric_precision": null,
+      "numeric_scale": null
     },
     {
       "table_name": "devolucao",
       "column_name": "concluida_em",
       "data_type": "timestamp with time zone",
       "is_nullable": "YES",
-      "column_default": null
+      "column_default": null,
+      "character_maximum_length": null,
+      "numeric_precision": null,
+      "numeric_scale": null
     },
     {
       "table_name": "ingestao_webhook",
       "column_name": "id_ingestao",
       "data_type": "bigint",
       "is_nullable": "NO",
-      "column_default": null
+      "column_default": null,
+      "character_maximum_length": null,
+      "numeric_precision": 64,
+      "numeric_scale": 0
     },
     {
       "table_name": "ingestao_webhook",
       "column_name": "psp",
       "data_type": "text",
       "is_nullable": "NO",
-      "column_default": null
+      "column_default": null,
+      "character_maximum_length": null,
+      "numeric_precision": null,
+      "numeric_scale": null
     },
     {
       "table_name": "ingestao_webhook",
       "column_name": "origem_autenticada",
       "data_type": "boolean",
       "is_nullable": "NO",
-      "column_default": null
+      "column_default": null,
+      "character_maximum_length": null,
+      "numeric_precision": null,
+      "numeric_scale": null
     },
     {
       "table_name": "ingestao_webhook",
       "column_name": "confirmado_na_api",
       "data_type": "boolean",
       "is_nullable": "NO",
-      "column_default": "false"
+      "column_default": "false",
+      "character_maximum_length": null,
+      "numeric_precision": null,
+      "numeric_scale": null
     },
     {
       "table_name": "ingestao_webhook",
       "column_name": "payload",
       "data_type": "jsonb",
       "is_nullable": "NO",
-      "column_default": null
+      "column_default": null,
+      "character_maximum_length": null,
+      "numeric_precision": null,
+      "numeric_scale": null
     },
     {
       "table_name": "ingestao_webhook",
       "column_name": "situacao_processamento",
       "data_type": "text",
       "is_nullable": "NO",
-      "column_default": "'PENDENTE'::text"
+      "column_default": "'PENDENTE'::text",
+      "character_maximum_length": null,
+      "numeric_precision": null,
+      "numeric_scale": null
     },
     {
       "table_name": "ingestao_webhook",
       "column_name": "recebido_em",
       "data_type": "timestamp with time zone",
       "is_nullable": "NO",
-      "column_default": "now()"
+      "column_default": "now()",
+      "character_maximum_length": null,
+      "numeric_precision": null,
+      "numeric_scale": null
     },
     {
       "table_name": "ingestao_webhook",
       "column_name": "expurgar_em",
       "data_type": "timestamp with time zone",
       "is_nullable": "NO",
-      "column_default": "(now() + '7 days'::interval)"
+      "column_default": "(now() + '7 days'::interval)",
+      "character_maximum_length": null,
+      "numeric_precision": null,
+      "numeric_scale": null
     },
     {
       "table_name": "lojista",
       "column_name": "id_lojista",
       "data_type": "bigint",
       "is_nullable": "NO",
-      "column_default": null
+      "column_default": null,
+      "character_maximum_length": null,
+      "numeric_precision": 64,
+      "numeric_scale": 0
     },
     {
       "table_name": "lojista",
       "column_name": "nome",
       "data_type": "text",
       "is_nullable": "NO",
-      "column_default": null
+      "column_default": null,
+      "character_maximum_length": null,
+      "numeric_precision": null,
+      "numeric_scale": null
     },
     {
       "table_name": "lojista",
       "column_name": "cnpj_hash",
       "data_type": "character",
       "is_nullable": "NO",
-      "column_default": null
+      "column_default": null,
+      "character_maximum_length": 64,
+      "numeric_precision": null,
+      "numeric_scale": null
     },
     {
       "table_name": "lojista",
       "column_name": "hora_abertura",
       "data_type": "time without time zone",
       "is_nullable": "NO",
-      "column_default": null
+      "column_default": null,
+      "character_maximum_length": null,
+      "numeric_precision": null,
+      "numeric_scale": null
     },
     {
       "table_name": "lojista",
       "column_name": "hora_fechamento",
       "data_type": "time without time zone",
       "is_nullable": "NO",
-      "column_default": null
+      "column_default": null,
+      "character_maximum_length": null,
+      "numeric_precision": null,
+      "numeric_scale": null
     },
     {
       "table_name": "lojista",
       "column_name": "ativo",
       "data_type": "boolean",
       "is_nullable": "NO",
-      "column_default": "true"
+      "column_default": "true",
+      "character_maximum_length": null,
+      "numeric_precision": null,
+      "numeric_scale": null
     },
     {
       "table_name": "notificacao",
       "column_name": "id_notificacao",
       "data_type": "bigint",
       "is_nullable": "NO",
-      "column_default": null
+      "column_default": null,
+      "character_maximum_length": null,
+      "numeric_precision": 64,
+      "numeric_scale": 0
     },
     {
       "table_name": "notificacao",
       "column_name": "id_pagamento",
       "data_type": "bigint",
       "is_nullable": "NO",
-      "column_default": null
+      "column_default": null,
+      "character_maximum_length": null,
+      "numeric_precision": 64,
+      "numeric_scale": 0
     },
     {
       "table_name": "notificacao",
       "column_name": "id_usuario",
       "data_type": "bigint",
       "is_nullable": "NO",
-      "column_default": null
+      "column_default": null,
+      "character_maximum_length": null,
+      "numeric_precision": 64,
+      "numeric_scale": 0
     },
     {
       "table_name": "notificacao",
       "column_name": "canal_envio",
       "data_type": "text",
       "is_nullable": "NO",
-      "column_default": null
+      "column_default": null,
+      "character_maximum_length": null,
+      "numeric_precision": null,
+      "numeric_scale": null
     },
     {
       "table_name": "notificacao",
       "column_name": "conteudo",
       "data_type": "text",
       "is_nullable": "NO",
-      "column_default": null
+      "column_default": null,
+      "character_maximum_length": null,
+      "numeric_precision": null,
+      "numeric_scale": null
     },
     {
       "table_name": "notificacao",
       "column_name": "enviada_em",
       "data_type": "timestamp with time zone",
       "is_nullable": "NO",
-      "column_default": null
+      "column_default": null,
+      "character_maximum_length": null,
+      "numeric_precision": null,
+      "numeric_scale": null
     },
     {
       "table_name": "pagador",
       "column_name": "id_pagador",
       "data_type": "bigint",
       "is_nullable": "NO",
-      "column_default": null
+      "column_default": null,
+      "character_maximum_length": null,
+      "numeric_precision": 64,
+      "numeric_scale": 0
     },
     {
       "table_name": "pagador",
       "column_name": "id_lojista",
       "data_type": "bigint",
       "is_nullable": "NO",
-      "column_default": null
+      "column_default": null,
+      "character_maximum_length": null,
+      "numeric_precision": 64,
+      "numeric_scale": 0
     },
     {
       "table_name": "pagador",
       "column_name": "documento_hash",
       "data_type": "character",
       "is_nullable": "NO",
-      "column_default": null
+      "column_default": null,
+      "character_maximum_length": 64,
+      "numeric_precision": null,
+      "numeric_scale": null
     },
     {
       "table_name": "pagador",
       "column_name": "nome_hash",
       "data_type": "character",
       "is_nullable": "YES",
-      "column_default": null
+      "column_default": null,
+      "character_maximum_length": 64,
+      "numeric_precision": null,
+      "numeric_scale": null
     },
     {
       "table_name": "pagador",
       "column_name": "primeiro_pagamento_em",
       "data_type": "timestamp with time zone",
       "is_nullable": "YES",
-      "column_default": null
+      "column_default": null,
+      "character_maximum_length": null,
+      "numeric_precision": null,
+      "numeric_scale": null
     },
     {
       "table_name": "pagador",
       "column_name": "ultimo_pagamento_em",
       "data_type": "timestamp with time zone",
       "is_nullable": "YES",
-      "column_default": null
+      "column_default": null,
+      "character_maximum_length": null,
+      "numeric_precision": null,
+      "numeric_scale": null
     },
     {
       "table_name": "pagador",
       "column_name": "qtd_pagamentos",
       "data_type": "integer",
       "is_nullable": "NO",
-      "column_default": "0"
+      "column_default": "0",
+      "character_maximum_length": null,
+      "numeric_precision": 32,
+      "numeric_scale": 0
     },
     {
       "table_name": "pagador",
       "column_name": "qtd_contestacoes",
       "data_type": "integer",
       "is_nullable": "NO",
-      "column_default": "0"
+      "column_default": "0",
+      "character_maximum_length": null,
+      "numeric_precision": 32,
+      "numeric_scale": 0
     },
     {
       "table_name": "pagamento",
       "column_name": "id_pagamento",
       "data_type": "bigint",
       "is_nullable": "NO",
-      "column_default": null
+      "column_default": null,
+      "character_maximum_length": null,
+      "numeric_precision": 64,
+      "numeric_scale": 0
     },
     {
       "table_name": "pagamento",
       "column_name": "id_conta",
       "data_type": "bigint",
       "is_nullable": "NO",
-      "column_default": null
+      "column_default": null,
+      "character_maximum_length": null,
+      "numeric_precision": 64,
+      "numeric_scale": 0
     },
     {
       "table_name": "pagamento",
       "column_name": "id_lojista",
       "data_type": "bigint",
       "is_nullable": "NO",
-      "column_default": null
+      "column_default": null,
+      "character_maximum_length": null,
+      "numeric_precision": 64,
+      "numeric_scale": 0
     },
     {
       "table_name": "pagamento",
       "column_name": "id_pagador",
       "data_type": "bigint",
       "is_nullable": "NO",
-      "column_default": null
+      "column_default": null,
+      "character_maximum_length": null,
+      "numeric_precision": 64,
+      "numeric_scale": 0
     },
     {
       "table_name": "pagamento",
       "column_name": "psp",
       "data_type": "text",
       "is_nullable": "NO",
-      "column_default": null
+      "column_default": null,
+      "character_maximum_length": null,
+      "numeric_precision": null,
+      "numeric_scale": null
     },
     {
       "table_name": "pagamento",
       "column_name": "end_to_end_id",
       "data_type": "text",
       "is_nullable": "NO",
-      "column_default": null
+      "column_default": null,
+      "character_maximum_length": null,
+      "numeric_precision": null,
+      "numeric_scale": null
     },
     {
       "table_name": "pagamento",
       "column_name": "txid",
       "data_type": "text",
       "is_nullable": "YES",
-      "column_default": null
+      "column_default": null,
+      "character_maximum_length": null,
+      "numeric_precision": null,
+      "numeric_scale": null
     },
     {
       "table_name": "pagamento",
       "column_name": "canal",
       "data_type": "text",
       "is_nullable": "NO",
-      "column_default": null
+      "column_default": null,
+      "character_maximum_length": null,
+      "numeric_precision": null,
+      "numeric_scale": null
     },
     {
       "table_name": "pagamento",
       "column_name": "valor",
       "data_type": "numeric",
       "is_nullable": "NO",
-      "column_default": null
+      "column_default": null,
+      "character_maximum_length": null,
+      "numeric_precision": 12,
+      "numeric_scale": 2
     },
     {
       "table_name": "pagamento",
       "column_name": "ocorrido_em",
       "data_type": "timestamp with time zone",
       "is_nullable": "NO",
-      "column_default": null
+      "column_default": null,
+      "character_maximum_length": null,
+      "numeric_precision": null,
+      "numeric_scale": null
     },
     {
       "table_name": "pagamento",
       "column_name": "registrado_em",
       "data_type": "timestamp with time zone",
       "is_nullable": "NO",
-      "column_default": "now()"
+      "column_default": "now()",
+      "character_maximum_length": null,
+      "numeric_precision": null,
+      "numeric_scale": null
     },
     {
       "table_name": "pagamento",
       "column_name": "situacao_entrega",
       "data_type": "text",
       "is_nullable": "NO",
-      "column_default": "'RETIDA'::text"
+      "column_default": "'RETIDA'::text",
+      "character_maximum_length": null,
+      "numeric_precision": null,
+      "numeric_scale": null
     },
     {
       "table_name": "regra",
       "column_name": "id_regra",
       "data_type": "bigint",
       "is_nullable": "NO",
-      "column_default": null
+      "column_default": null,
+      "character_maximum_length": null,
+      "numeric_precision": 64,
+      "numeric_scale": 0
     },
     {
       "table_name": "regra",
       "column_name": "codigo",
       "data_type": "text",
       "is_nullable": "NO",
-      "column_default": null
+      "column_default": null,
+      "character_maximum_length": null,
+      "numeric_precision": null,
+      "numeric_scale": null
     },
     {
       "table_name": "regra",
       "column_name": "versao",
       "data_type": "integer",
       "is_nullable": "NO",
-      "column_default": null
+      "column_default": null,
+      "character_maximum_length": null,
+      "numeric_precision": 32,
+      "numeric_scale": 0
     },
     {
       "table_name": "regra",
       "column_name": "descricao",
       "data_type": "text",
       "is_nullable": "NO",
-      "column_default": null
+      "column_default": null,
+      "character_maximum_length": null,
+      "numeric_precision": null,
+      "numeric_scale": null
     },
     {
       "table_name": "regra",
       "column_name": "peso",
       "data_type": "smallint",
       "is_nullable": "NO",
-      "column_default": null
+      "column_default": null,
+      "character_maximum_length": null,
+      "numeric_precision": 16,
+      "numeric_scale": 0
     },
     {
       "table_name": "regra",
       "column_name": "ativa",
       "data_type": "boolean",
       "is_nullable": "NO",
-      "column_default": "true"
+      "column_default": "true",
+      "character_maximum_length": null,
+      "numeric_precision": null,
+      "numeric_scale": null
     },
     {
       "table_name": "sinal_apurado",
       "column_name": "id_sinal",
       "data_type": "bigint",
       "is_nullable": "NO",
-      "column_default": null
+      "column_default": null,
+      "character_maximum_length": null,
+      "numeric_precision": 64,
+      "numeric_scale": 0
     },
     {
       "table_name": "sinal_apurado",
       "column_name": "id_analise",
       "data_type": "bigint",
       "is_nullable": "NO",
-      "column_default": null
+      "column_default": null,
+      "character_maximum_length": null,
+      "numeric_precision": 64,
+      "numeric_scale": 0
     },
     {
       "table_name": "sinal_apurado",
       "column_name": "id_regra",
       "data_type": "bigint",
       "is_nullable": "NO",
-      "column_default": null
+      "column_default": null,
+      "character_maximum_length": null,
+      "numeric_precision": 64,
+      "numeric_scale": 0
     },
     {
       "table_name": "sinal_apurado",
       "column_name": "disparou",
       "data_type": "boolean",
       "is_nullable": "NO",
-      "column_default": null
+      "column_default": null,
+      "character_maximum_length": null,
+      "numeric_precision": null,
+      "numeric_scale": null
     },
     {
       "table_name": "sinal_apurado",
       "column_name": "contribuicao",
       "data_type": "smallint",
       "is_nullable": "NO",
-      "column_default": null
+      "column_default": null,
+      "character_maximum_length": null,
+      "numeric_precision": 16,
+      "numeric_scale": 0
     },
     {
       "table_name": "sinal_apurado",
       "column_name": "detalhe",
       "data_type": "jsonb",
       "is_nullable": "NO",
-      "column_default": "'{}'::jsonb"
+      "column_default": "'{}'::jsonb",
+      "character_maximum_length": null,
+      "numeric_precision": null,
+      "numeric_scale": null
     },
     {
       "table_name": "usuario",
       "column_name": "id_usuario",
       "data_type": "bigint",
       "is_nullable": "NO",
-      "column_default": null
+      "column_default": null,
+      "character_maximum_length": null,
+      "numeric_precision": 64,
+      "numeric_scale": 0
     },
     {
       "table_name": "usuario",
       "column_name": "id_lojista",
       "data_type": "bigint",
       "is_nullable": "NO",
-      "column_default": null
+      "column_default": null,
+      "character_maximum_length": null,
+      "numeric_precision": 64,
+      "numeric_scale": 0
     },
     {
       "table_name": "usuario",
       "column_name": "email",
       "data_type": "text",
       "is_nullable": "NO",
-      "column_default": null
+      "column_default": null,
+      "character_maximum_length": null,
+      "numeric_precision": null,
+      "numeric_scale": null
     },
     {
       "table_name": "usuario",
       "column_name": "senha_hash",
       "data_type": "text",
       "is_nullable": "NO",
-      "column_default": null
+      "column_default": null,
+      "character_maximum_length": null,
+      "numeric_precision": null,
+      "numeric_scale": null
     },
     {
       "table_name": "usuario",
       "column_name": "papel",
       "data_type": "text",
       "is_nullable": "NO",
-      "column_default": null
+      "column_default": null,
+      "character_maximum_length": null,
+      "numeric_precision": null,
+      "numeric_scale": null
     }
   ],
   "checks": {
