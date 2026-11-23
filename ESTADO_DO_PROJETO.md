@@ -3,6 +3,15 @@
 **A3 · Análise de Dados e Big Data · USJT 2026/2**
 **Atualizado em:** 23/11/2026
 
+> **Atualização de entrega (23/11/2026):** a A3 agora possui relatório final em
+> `output/pdf/CONFIA_relatorio_A3.pdf`, protótipo relacional reproduzível em `sql/`,
+> oito consultas executadas com resultados em `evidencias/resultados.json` e roteiro
+> de apresentação em `PITCH.md`. O comando `npm run demo` foi verificado localmente.
+> O plano de 17 tarefas abaixo permanece como visão de produto futuro; a integração
+> com Asaas e o aplicativo em tempo real não fazem parte desta prova de conceito.
+> Consulte `README.md` para reprodução. A seção 6 registra pendências históricas
+> do plano de produto, não bloqueios da entrega da A3.
+
 > Este documento existe para você retomar o projeto sem refazer nada e sem repetir discussão já
 > encerrada. Leia a seção 3 antes de propor qualquer mudança de rumo — ela registra o que já foi
 > descartado e por quê.

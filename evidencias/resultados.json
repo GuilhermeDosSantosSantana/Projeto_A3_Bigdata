@@ -1,0 +1,985 @@
+{
+  "engine": "PGlite (PostgreSQL em WebAssembly)",
+  "sample": {
+    "lojista": 2,
+    "pagador": 4,
+    "pagamento": 12,
+    "regra": 9,
+    "analise_risco": 12,
+    "sinal_apurado": 108,
+    "alerta": 4,
+    "desfecho": 2,
+    "devolucao": 1,
+    "ingestao_webhook": 1
+  },
+  "queries": {
+    "pn01": [
+      {
+        "canal": "ECOMMERCE",
+        "faixa": 2,
+        "veredito": "APROVADO",
+        "pagamentos": 1,
+        "valor_total": "250.00"
+      },
+      {
+        "canal": "PRESENCIAL",
+        "faixa": 1,
+        "veredito": "APROVADO",
+        "pagamentos": 6,
+        "valor_total": "238.00"
+      },
+      {
+        "canal": "PRESENCIAL",
+        "faixa": 1,
+        "veredito": "EM_ANALISE",
+        "pagamentos": 2,
+        "valor_total": "300.00"
+      },
+      {
+        "canal": "PRESENCIAL",
+        "faixa": 2,
+        "veredito": "APROVADO",
+        "pagamentos": 1,
+        "valor_total": "250.00"
+      },
+      {
+        "canal": "PRESENCIAL",
+        "faixa": 3,
+        "veredito": "RECUSADO",
+        "pagamentos": 1,
+        "valor_total": "600.00"
+      },
+      {
+        "canal": "PRESENCIAL",
+        "faixa": 4,
+        "veredito": "RECUSADO",
+        "pagamentos": 1,
+        "valor_total": "900.00"
+      }
+    ],
+    "pn02": [
+      {
+        "codigo": "RN05",
+        "disparos_rotulados": 2,
+        "verdadeiros_positivos": 2,
+        "precisao_pct": "100.0"
+      },
+      {
+        "codigo": "RN08",
+        "disparos_rotulados": 1,
+        "verdadeiros_positivos": 1,
+        "precisao_pct": "100.0"
+      },
+      {
+        "codigo": "RN09",
+        "disparos_rotulados": 2,
+        "verdadeiros_positivos": 2,
+        "precisao_pct": "100.0"
+      },
+      {
+        "codigo": "RN04",
+        "disparos_rotulados": 0,
+        "verdadeiros_positivos": 0,
+        "precisao_pct": null
+      },
+      {
+        "codigo": "RN06",
+        "disparos_rotulados": 0,
+        "verdadeiros_positivos": 0,
+        "precisao_pct": null
+      },
+      {
+        "codigo": "RN07",
+        "disparos_rotulados": 0,
+        "verdadeiros_positivos": 0,
+        "precisao_pct": null
+      },
+      {
+        "codigo": "RN10",
+        "disparos_rotulados": 0,
+        "verdadeiros_positivos": 0,
+        "precisao_pct": null
+      },
+      {
+        "codigo": "RN11",
+        "disparos_rotulados": 0,
+        "verdadeiros_positivos": 0,
+        "precisao_pct": null
+      },
+      {
+        "codigo": "RN12",
+        "disparos_rotulados": 0,
+        "verdadeiros_positivos": 0,
+        "precisao_pct": null
+      }
+    ],
+    "pn03": [
+      {
+        "analises": 12,
+        "p50_ms": "115.0",
+        "p95_ms": "258.0",
+        "p99_ms": "275.6"
+      }
+    ],
+    "pn04": [
+      {
+        "id_lojista": 1,
+        "pagamentos_retidos": 2,
+        "valor_exposto_retido": "1500.00"
+      }
+    ],
+    "pn05": [
+      {
+        "rotulo": "FRAUDE",
+        "hora_local": 9,
+        "faixa": 4,
+        "pagamentos": 1
+      },
+      {
+        "rotulo": "FRAUDE",
+        "hora_local": 13,
+        "faixa": 3,
+        "pagamentos": 1
+      }
+    ],
+    "pn06": [
+      {
+        "id_pagamento": 12,
+        "dias_ate_med": "75.4",
+        "valor": "250.00"
+      }
+    ],
+    "pn07": [
+      {
+        "id_lojista": 1,
+        "id_pagador": 1,
+        "id_pagamento": 1,
+        "ocorrido_em": "2026-11-01T13:00:00.000Z",
+        "compra_numero": 1,
+        "veredito": "APROVADO"
+      },
+      {
+        "id_lojista": 1,
+        "id_pagador": 1,
+        "id_pagamento": 2,
+        "ocorrido_em": "2026-11-05T14:00:00.000Z",
+        "compra_numero": 2,
+        "veredito": "APROVADO"
+      },
+      {
+        "id_lojista": 1,
+        "id_pagador": 1,
+        "id_pagamento": 5,
+        "ocorrido_em": "2026-11-19T18:00:00.000Z",
+        "compra_numero": 3,
+        "veredito": "APROVADO"
+      },
+      {
+        "id_lojista": 1,
+        "id_pagador": 1,
+        "id_pagamento": 11,
+        "ocorrido_em": "2026-11-20T19:00:00.000Z",
+        "compra_numero": 4,
+        "veredito": "APROVADO"
+      },
+      {
+        "id_lojista": 1,
+        "id_pagador": 2,
+        "id_pagamento": 12,
+        "ocorrido_em": "2026-09-02T15:00:00.000Z",
+        "compra_numero": 1,
+        "veredito": "APROVADO"
+      },
+      {
+        "id_lojista": 1,
+        "id_pagador": 2,
+        "id_pagamento": 3,
+        "ocorrido_em": "2026-11-18T16:00:00.000Z",
+        "compra_numero": 2,
+        "veredito": "APROVADO"
+      },
+      {
+        "id_lojista": 1,
+        "id_pagador": 2,
+        "id_pagamento": 4,
+        "ocorrido_em": "2026-11-18T16:12:00.000Z",
+        "compra_numero": 3,
+        "veredito": "RECUSADO"
+      },
+      {
+        "id_lojista": 1,
+        "id_pagador": 2,
+        "id_pagamento": 7,
+        "ocorrido_em": "2026-11-20T12:00:00.000Z",
+        "compra_numero": 4,
+        "veredito": "RECUSADO"
+      },
+      {
+        "id_lojista": 1,
+        "id_pagador": 3,
+        "id_pagamento": 6,
+        "ocorrido_em": "2026-11-20T01:00:00.000Z",
+        "compra_numero": 1,
+        "veredito": "EM_ANALISE"
+      },
+      {
+        "id_lojista": 1,
+        "id_pagador": 3,
+        "id_pagamento": 9,
+        "ocorrido_em": "2026-11-21T14:00:00.000Z",
+        "compra_numero": 2,
+        "veredito": "APROVADO"
+      },
+      {
+        "id_lojista": 1,
+        "id_pagador": 3,
+        "id_pagamento": 10,
+        "ocorrido_em": "2026-11-21T14:15:00.000Z",
+        "compra_numero": 3,
+        "veredito": "EM_ANALISE"
+      },
+      {
+        "id_lojista": 2,
+        "id_pagador": 4,
+        "id_pagamento": 8,
+        "ocorrido_em": "2026-11-20T13:00:00.000Z",
+        "compra_numero": 1,
+        "veredito": "APROVADO"
+      }
+    ],
+    "pn08": [
+      {
+        "situacao": "ABERTO",
+        "alertas": 2,
+        "media_minutos_fechamento": null
+      },
+      {
+        "situacao": "FECHADO",
+        "alertas": 2,
+        "media_minutos_fechamento": "35.5"
+      }
+    ]
+  },
+  "dictionary": [
+    {
+      "table_name": "alerta",
+      "column_name": "id_alerta",
+      "data_type": "bigint",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "alerta",
+      "column_name": "id_analise",
+      "data_type": "bigint",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "alerta",
+      "column_name": "situacao",
+      "data_type": "text",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "alerta",
+      "column_name": "aberto_em",
+      "data_type": "timestamp with time zone",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "alerta",
+      "column_name": "fechado_em",
+      "data_type": "timestamp with time zone",
+      "is_nullable": "YES",
+      "column_default": null
+    },
+    {
+      "table_name": "analise_risco",
+      "column_name": "id_analise",
+      "data_type": "bigint",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "analise_risco",
+      "column_name": "id_pagamento",
+      "data_type": "bigint",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "analise_risco",
+      "column_name": "veredito",
+      "data_type": "text",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "analise_risco",
+      "column_name": "score",
+      "data_type": "smallint",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "analise_risco",
+      "column_name": "degradada",
+      "data_type": "boolean",
+      "is_nullable": "NO",
+      "column_default": "false"
+    },
+    {
+      "table_name": "analise_risco",
+      "column_name": "latencia_ms",
+      "data_type": "integer",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "analise_risco",
+      "column_name": "versao_catalogo",
+      "data_type": "integer",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "analise_risco",
+      "column_name": "analisado_em",
+      "data_type": "timestamp with time zone",
+      "is_nullable": "NO",
+      "column_default": "now()"
+    },
+    {
+      "table_name": "auditoria",
+      "column_name": "id_auditoria",
+      "data_type": "bigint",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "auditoria",
+      "column_name": "id_lojista",
+      "data_type": "bigint",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "auditoria",
+      "column_name": "entidade",
+      "data_type": "text",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "auditoria",
+      "column_name": "id_entidade",
+      "data_type": "bigint",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "auditoria",
+      "column_name": "acao",
+      "data_type": "text",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "auditoria",
+      "column_name": "ator",
+      "data_type": "text",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "auditoria",
+      "column_name": "payload_hash",
+      "data_type": "character",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "auditoria",
+      "column_name": "hash_anterior",
+      "data_type": "character",
+      "is_nullable": "YES",
+      "column_default": null
+    },
+    {
+      "table_name": "auditoria",
+      "column_name": "ocorrido_em",
+      "data_type": "timestamp with time zone",
+      "is_nullable": "NO",
+      "column_default": "now()"
+    },
+    {
+      "table_name": "cobranca_esperada",
+      "column_name": "id_cobranca",
+      "data_type": "bigint",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "cobranca_esperada",
+      "column_name": "id_conta",
+      "data_type": "bigint",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "cobranca_esperada",
+      "column_name": "txid",
+      "data_type": "text",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "cobranca_esperada",
+      "column_name": "valor_esperado",
+      "data_type": "numeric",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "cobranca_esperada",
+      "column_name": "referencia_pedido",
+      "data_type": "text",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "cobranca_esperada",
+      "column_name": "expira_em",
+      "data_type": "timestamp with time zone",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "conta_recebedora",
+      "column_name": "id_conta",
+      "data_type": "bigint",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "conta_recebedora",
+      "column_name": "id_lojista",
+      "data_type": "bigint",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "conta_recebedora",
+      "column_name": "chave_pix_hash",
+      "data_type": "character",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "conta_recebedora",
+      "column_name": "apelido",
+      "data_type": "text",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "conta_recebedora",
+      "column_name": "canal_padrao",
+      "data_type": "text",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "desfecho",
+      "column_name": "id_desfecho",
+      "data_type": "bigint",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "desfecho",
+      "column_name": "id_alerta",
+      "data_type": "bigint",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "desfecho",
+      "column_name": "rotulo",
+      "data_type": "text",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "desfecho",
+      "column_name": "justificativa",
+      "data_type": "text",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "desfecho",
+      "column_name": "registrado_em",
+      "data_type": "timestamp with time zone",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "devolucao",
+      "column_name": "id_devolucao",
+      "data_type": "bigint",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "devolucao",
+      "column_name": "id_pagamento",
+      "data_type": "bigint",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "devolucao",
+      "column_name": "origem",
+      "data_type": "text",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "devolucao",
+      "column_name": "valor",
+      "data_type": "numeric",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "devolucao",
+      "column_name": "situacao",
+      "data_type": "text",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "devolucao",
+      "column_name": "solicitada_em",
+      "data_type": "timestamp with time zone",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "devolucao",
+      "column_name": "concluida_em",
+      "data_type": "timestamp with time zone",
+      "is_nullable": "YES",
+      "column_default": null
+    },
+    {
+      "table_name": "ingestao_webhook",
+      "column_name": "id_ingestao",
+      "data_type": "bigint",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "ingestao_webhook",
+      "column_name": "psp",
+      "data_type": "text",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "ingestao_webhook",
+      "column_name": "origem_autenticada",
+      "data_type": "boolean",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "ingestao_webhook",
+      "column_name": "confirmado_na_api",
+      "data_type": "boolean",
+      "is_nullable": "NO",
+      "column_default": "false"
+    },
+    {
+      "table_name": "ingestao_webhook",
+      "column_name": "payload",
+      "data_type": "jsonb",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "ingestao_webhook",
+      "column_name": "situacao_processamento",
+      "data_type": "text",
+      "is_nullable": "NO",
+      "column_default": "'PENDENTE'::text"
+    },
+    {
+      "table_name": "ingestao_webhook",
+      "column_name": "recebido_em",
+      "data_type": "timestamp with time zone",
+      "is_nullable": "NO",
+      "column_default": "now()"
+    },
+    {
+      "table_name": "ingestao_webhook",
+      "column_name": "expurgar_em",
+      "data_type": "timestamp with time zone",
+      "is_nullable": "NO",
+      "column_default": "(now() + '7 days'::interval)"
+    },
+    {
+      "table_name": "lojista",
+      "column_name": "id_lojista",
+      "data_type": "bigint",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "lojista",
+      "column_name": "nome",
+      "data_type": "text",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "lojista",
+      "column_name": "cnpj_hash",
+      "data_type": "character",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "lojista",
+      "column_name": "hora_abertura",
+      "data_type": "time without time zone",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "lojista",
+      "column_name": "hora_fechamento",
+      "data_type": "time without time zone",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "lojista",
+      "column_name": "ativo",
+      "data_type": "boolean",
+      "is_nullable": "NO",
+      "column_default": "true"
+    },
+    {
+      "table_name": "notificacao",
+      "column_name": "id_notificacao",
+      "data_type": "bigint",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "notificacao",
+      "column_name": "id_pagamento",
+      "data_type": "bigint",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "notificacao",
+      "column_name": "id_usuario",
+      "data_type": "bigint",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "notificacao",
+      "column_name": "canal_envio",
+      "data_type": "text",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "notificacao",
+      "column_name": "conteudo",
+      "data_type": "text",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "notificacao",
+      "column_name": "enviada_em",
+      "data_type": "timestamp with time zone",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "pagador",
+      "column_name": "id_pagador",
+      "data_type": "bigint",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "pagador",
+      "column_name": "id_lojista",
+      "data_type": "bigint",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "pagador",
+      "column_name": "documento_hash",
+      "data_type": "character",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "pagador",
+      "column_name": "nome_hash",
+      "data_type": "character",
+      "is_nullable": "YES",
+      "column_default": null
+    },
+    {
+      "table_name": "pagador",
+      "column_name": "primeiro_pagamento_em",
+      "data_type": "timestamp with time zone",
+      "is_nullable": "YES",
+      "column_default": null
+    },
+    {
+      "table_name": "pagador",
+      "column_name": "ultimo_pagamento_em",
+      "data_type": "timestamp with time zone",
+      "is_nullable": "YES",
+      "column_default": null
+    },
+    {
+      "table_name": "pagador",
+      "column_name": "qtd_pagamentos",
+      "data_type": "integer",
+      "is_nullable": "NO",
+      "column_default": "0"
+    },
+    {
+      "table_name": "pagador",
+      "column_name": "qtd_contestacoes",
+      "data_type": "integer",
+      "is_nullable": "NO",
+      "column_default": "0"
+    },
+    {
+      "table_name": "pagamento",
+      "column_name": "id_pagamento",
+      "data_type": "bigint",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "pagamento",
+      "column_name": "id_conta",
+      "data_type": "bigint",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "pagamento",
+      "column_name": "id_lojista",
+      "data_type": "bigint",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "pagamento",
+      "column_name": "id_pagador",
+      "data_type": "bigint",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "pagamento",
+      "column_name": "psp",
+      "data_type": "text",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "pagamento",
+      "column_name": "end_to_end_id",
+      "data_type": "text",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "pagamento",
+      "column_name": "txid",
+      "data_type": "text",
+      "is_nullable": "YES",
+      "column_default": null
+    },
+    {
+      "table_name": "pagamento",
+      "column_name": "canal",
+      "data_type": "text",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "pagamento",
+      "column_name": "valor",
+      "data_type": "numeric",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "pagamento",
+      "column_name": "ocorrido_em",
+      "data_type": "timestamp with time zone",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "pagamento",
+      "column_name": "registrado_em",
+      "data_type": "timestamp with time zone",
+      "is_nullable": "NO",
+      "column_default": "now()"
+    },
+    {
+      "table_name": "pagamento",
+      "column_name": "situacao_entrega",
+      "data_type": "text",
+      "is_nullable": "NO",
+      "column_default": "'RETIDA'::text"
+    },
+    {
+      "table_name": "regra",
+      "column_name": "id_regra",
+      "data_type": "bigint",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "regra",
+      "column_name": "codigo",
+      "data_type": "text",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "regra",
+      "column_name": "versao",
+      "data_type": "integer",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "regra",
+      "column_name": "descricao",
+      "data_type": "text",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "regra",
+      "column_name": "peso",
+      "data_type": "smallint",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "regra",
+      "column_name": "ativa",
+      "data_type": "boolean",
+      "is_nullable": "NO",
+      "column_default": "true"
+    },
+    {
+      "table_name": "sinal_apurado",
+      "column_name": "id_sinal",
+      "data_type": "bigint",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "sinal_apurado",
+      "column_name": "id_analise",
+      "data_type": "bigint",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "sinal_apurado",
+      "column_name": "id_regra",
+      "data_type": "bigint",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "sinal_apurado",
+      "column_name": "disparou",
+      "data_type": "boolean",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "sinal_apurado",
+      "column_name": "contribuicao",
+      "data_type": "smallint",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "sinal_apurado",
+      "column_name": "detalhe",
+      "data_type": "jsonb",
+      "is_nullable": "NO",
+      "column_default": "'{}'::jsonb"
+    },
+    {
+      "table_name": "usuario",
+      "column_name": "id_usuario",
+      "data_type": "bigint",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "usuario",
+      "column_name": "id_lojista",
+      "data_type": "bigint",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "usuario",
+      "column_name": "email",
+      "data_type": "text",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "usuario",
+      "column_name": "senha_hash",
+      "data_type": "text",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "usuario",
+      "column_name": "papel",
+      "data_type": "text",
+      "is_nullable": "NO",
+      "column_default": null
+    }
+  ],
+  "checks": {
+    "duplicate_blocked": true,
+    "cross_store_blocked": true,
+    "raw_after_purge": 0,
+    "normalized_after_purge": 12
+  }
+}

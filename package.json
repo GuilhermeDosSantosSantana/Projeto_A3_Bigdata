@@ -1,0 +1,11 @@
+{
+  "name": "confia-a3-prototipo",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "demo": "node scripts/demo.mjs"
+  },
+  "dependencies": {
+    "@electric-sql/pglite": "^0.6.0"
+  }
+}
