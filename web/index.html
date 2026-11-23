@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#153b30">
+  <title>GIRO — Estoque em movimento</title>
+  <link rel="stylesheet" href="/style.css">
+  <script src="/app.js" defer></script>
+</head>
+<body>
+  <div class="shell">
+    <aside class="sidebar">
+      <div class="brand"><span class="brand-mark">G</span><span>GIRO<small>inteligência de estoque</small></span></div>
+      <nav class="nav" aria-label="Navegação principal">
+        <a class="nav-item active" href="#visao"><span>◫</span> Visão geral</a>
+        <a class="nav-item" href="#estoque"><span>▦</span> Estoque</a>
+        <a class="nav-item" href="#movimentacoes"><span>↗</span> Movimentações</a>
+      </nav>
+      <div class="side-note"><span class="pulse"></span><strong>Base local</strong><p>Dados fictícios para a A3. Todas as mudanças desta tela ficam no SQLite do projeto.</p></div>
+      <div class="side-footer">Projeto A3 · Análise de Dados<br><span>Protótipo acadêmico</span></div>
+    </aside>
+
+    <main id="visao" class="main">
+      <header class="topbar"><div><span class="eyebrow">PAINEL DE OPERAÇÃO</span><h1>Bom dia, gestor <span class="wave">✳</span></h1><p id="today">Seu estoque, sem pontos cegos.</p></div><div class="top-actions"><span class="local-badge"><span></span> Sistema local</span><button class="button button-outline" data-action="product">+ Novo produto</button></div></header>
+
+      <section class="hero" aria-label="Resumo do estoque"><div class="hero-copy"><span class="hero-kicker">GESTÃO INTELIGENTE · MERCADINHO DEMO</span><h2>Decida o que comprar<br><em>antes de faltar.</em></h2><p>Entradas, vendas e perdas alimentam um único histórico. O painel transforma esses dados em prioridades de reposição e validade.</p><button class="button button-light" data-action="receipt">Registrar entrada <span>↗</span></button></div><div class="hero-art" aria-hidden="true"><div class="orbit orbit-one"></div><div class="orbit orbit-two"></div><div class="art-card art-back"><span>GIRO / ESTOQUE</span><strong>+12</strong><small>unidades recebidas</small></div><div class="art-card art-front"><span>PRÓXIMA DECISÃO</span><div class="art-bars"><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div><strong>Repor no momento certo.</strong></div><div class="art-star">✳</div></div></section>
+
+      <section class="metrics" aria-label="Indicadores principais"><article class="metric"><div class="metric-head"><span>Valor em estoque</span><span class="metric-icon mint">▥</span></div><strong id="metric-value">—</strong><small>Custo das unidades disponíveis</small></article><article class="metric"><div class="metric-head"><span>Produtos em risco</span><span class="metric-icon peach">!</span></div><strong id="metric-risk">—</strong><small>Estoque abaixo do ponto de reposição</small></article><article class="metric"><div class="metric-head"><span>Lotes que vencem</span><span class="metric-icon lilac">◷</span></div><strong id="metric-expiring">—</strong><small>Validade nos próximos 7 dias</small></article><article class="metric"><div class="metric-head"><span>Vendas em 7 dias</span><span class="metric-icon sand">↗</span></div><strong id="metric-revenue">—</strong><small>Receita registrada no período</small></article></section>
+
+      <section class="insights"><article class="panel chart-panel"><div class="panel-heading"><div><span class="eyebrow">MOVIMENTO</span><h2>Vendas da semana</h2></div><span class="panel-tag">Últimos 7 dias</span></div><div class="chart-summary"><strong id="chart-total">—</strong><span>de receita registrada</span></div><div id="sales-chart" class="sales-chart" aria-label="Gráfico da receita dos últimos 7 dias"></div></article><article class="panel mix-panel"><div class="panel-heading"><div><span class="eyebrow">COMPOSIÇÃO</span><h2>Estoque por categoria</h2></div></div><div class="mix-body"><div id="mix-donut" class="donut"><div><strong id="mix-total">—</strong><span>em estoque</span></div></div><div id="mix-legend" class="mix-legend"></div></div></article></section>
+
+      <section class="section-header" id="estoque"><div><span class="eyebrow">PRIORIDADES DE HOJE</span><h2>O que precisa de atenção</h2><p>Alertas calculados pelas vendas recentes, prazo de entrega e validade dos lotes.</p></div><button class="text-button" data-action="receipt">+ Dar entrada</button></section>
+      <div id="alerts" class="alerts"></div>
+
+      <section class="section-header inventory-header"><div><span class="eyebrow">CATÁLOGO</span><h2>Estoque em tempo real</h2><p>Cada saldo é calculado a partir das entradas, vendas e perdas gravadas no banco.</p></div><div class="table-tools"><label class="search"><span>⌕</span><input id="search" type="search" placeholder="Buscar produto ou SKU" aria-label="Buscar produto ou SKU"></label><select id="filter" aria-label="Filtrar por situação"><option value="all">Todos os produtos</option><option value="risk">Em risco</option><option value="expiry">Próximos da validade</option></select></div></section>
+      <div class="table-wrap"><table><thead><tr><th>Produto</th><th>Categoria</th><th>Estoque</th><th>Cobertura</th><th>Situação</th><th>Ação</th></tr></thead><tbody id="product-rows"><tr><td colspan="6" class="loading">Carregando estoque...</td></tr></tbody></table></div>
+
+      <section class="bottom-grid" id="movimentacoes"><article class="panel movements"><div class="panel-heading"><div><span class="eyebrow">RASTREABILIDADE</span><h2>Últimas movimentações</h2></div></div><div id="movement-list"></div></article><article class="panel explainer"><span class="eyebrow">COMO O ALERTA FUNCIONA</span><h2>Uma conta que você<br>consegue explicar.</h2><div class="formula"><span>Média diária de vendas</span><b>×</b><span>Prazo do fornecedor + 2 dias</span><b>=</b><strong>Ponto de reposição</strong></div><p>Comparamos esse ponto ao saldo disponível. O estoque mínimo cadastrado funciona como piso. A sugestão é uma regra transparente, sem alegar previsão por IA.</p><button class="button button-dark" data-action="sale">Registrar venda <span>↗</span></button></article></section>
+      <footer>GIRO · Protótipo acadêmico com dados fictícios · Banco SQLite local</footer>
+    </main>
+  </div>
+
+  <dialog id="action-dialog"><form id="action-form" method="dialog"><div class="dialog-top"><div><span class="eyebrow">MOVIMENTAÇÃO DE ESTOQUE</span><h2 id="dialog-title">Registrar ação</h2><p id="dialog-help"></p></div><button type="button" class="close" id="close-dialog" aria-label="Fechar">×</button></div><div id="dialog-fields" class="dialog-fields"></div><div class="dialog-actions"><button type="button" class="button button-outline" id="cancel-dialog">Cancelar</button><button type="submit" class="button button-dark" id="submit-dialog">Salvar</button></div></form></dialog>
+  <div id="toast" role="status" aria-live="polite"></div>
+</body>
+</html>
