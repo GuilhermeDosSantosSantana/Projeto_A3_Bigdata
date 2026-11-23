@@ -1,5 +1,11 @@
 @echo off
 cd /d "%~dp0"
+curl.exe --silent --fail "http://127.0.0.1:3000/api/state" >nul 2>&1
+if not errorlevel 1 (
+  echo CONFIA ja esta ativo em http://127.0.0.1:3000
+  start "" "http://127.0.0.1:3000"
+  exit /b 0
+)
 if not exist "node_modules\@electric-sql\pglite\package.json" (
   echo Instalando a dependencia do banco local...
   call npm install
