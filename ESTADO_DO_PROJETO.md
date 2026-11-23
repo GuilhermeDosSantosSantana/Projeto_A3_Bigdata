@@ -22,21 +22,22 @@ Todos os arquivos estão em `C:\Users\gsantana5\Documents\A3_BigData\`.
 
 ### Situação do controle de versão
 
-**Nada está versionado. Nada foi enviado para nenhum repositório remoto. Não existe link.**
+**Repositório local criado e com o primeiro commit feito** (`b21517b`), contendo os quatro
+documentos e o `.gitignore`. A raiz do repositório é a própria pasta do projeto.
 
-O repositório git que alcança essa pasta tem a raiz em `C:\Users\gsantana5` — a pasta de usuário
-inteira — e está com zero commits. Isso é um problema: um `git add .` ali tentaria versionar
-`AppData`, `Downloads`, `OneDrive` e todo o resto.
+Antes disso o único repositório que alcançava essa pasta tinha raiz em `C:\Users\gsantana5` — a
+pasta de usuário inteira — e zero commits. Era um risco: um `git add .` ali tentaria versionar
+`AppData`, `Downloads` e `OneDrive`. Por isso o projeto ganhou repositório próprio.
 
-**O que fazer antes de escrever código:**
+**Ainda não existe remoto. Nada foi enviado para o GitHub e não há link para compartilhar.**
+Para o grupo ter acesso, falta criar um repositório no GitHub e apontá-lo como `origin`:
 
 ```bash
-git init C:/Users/gsantana5/Documents/A3_BigData
+gh repo create confia-a3-bigdata --private --source=. --remote=origin --push
 ```
 
-Depois disso, um `.gitignore` com `node_modules/`, `.env` e `dist/`, e o primeiro commit com os
-três documentos. Para ter link compartilhável com o grupo, criar um repositório no GitHub e
-apontar como `origin`.
+O `.gitignore` já protege `.env` e `.claude/settings.local.json` — nenhuma credencial do Asaas
+pode entrar no repositório por acidente (RNF04 e seção 6.2 do spec).
 
 ---
 
