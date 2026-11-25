@@ -6,4 +6,4 @@ MySQL foi escolhido para uma operacao varejista centralizada com multiplas conex
 
 A carga de demonstracao tem 2.000 produtos, 500.000 clientes ficticios, 2.498 lotes, 750.000 vendas e 755.002 eventos. Ela foi gerada artificialmente para testar estrutura e consultas. Esses numeros nao demonstram, sozinhos, desempenho sob usuarios simultaneos ou impacto real em perdas. A regra de reposicao e uma formula simples e explicavel, nao uma previsao de IA.
 
-O dicionario completo, o esquema SQL, as consultas e as evidencias estao nas pastas `docs`, `mysql` e `evidencias`. O relatorio final esta em `output/pdf/GIRO_relatorio_A3.pdf`. Antes da entrega ao professor, o grupo deve preencher integrantes e turma na capa e revisar a defesa oral.
+O dicionario completo, o esquema SQL, as consultas e as evidencias estao nas pastas `docs`, `mysql` e `evidencias`. O relatorio final esta em `output/pdf/GIRO_relatorio_A3.pdf`. Antes da entrega ao professor, revise os resultados e a defesa oral.

@@ -2,7 +2,7 @@
 
 Este roteiro traduz o **enunciado da professora** (`A3_Analise_de_Dados_e_Big_Data_20260929135523.pdf`) para o projeto GIRO. O enunciado e a lista de exigencias; este arquivo e um guia de redacao para o grupo, nao uma instrução para copiar texto sem revisar. O relatorio editavel e gerado por `scripts/relatorio.py`; a versao entregue esta em `output/pdf/GIRO_relatorio_A3.pdf`.
 
-Antes de entregar, preencham nomes dos integrantes, turma, professora e tempo de pitch; revisem os numeros apos a ultima validacao; declarem onde a IA foi usada e o que o grupo conferiu. Nao afirmem que os clientes da amostra sao reais.
+Antes de entregar, revisem os numeros apos a ultima validacao e declarem onde a IA foi usada e o que foi conferido. Nao afirmem que os clientes da amostra sao reais.
 
 ## 4.1 Problema e visao
 
@@ -34,12 +34,12 @@ Sejam claros: centro de estoque unico, clientes sinteticos, sem login de operado
 
 ## Revisao final e divisao da fala
 
-| Parte | Quem apresenta | Prova na tela |
+| Parte | Ponto principal | Prova na tela |
 |---|---|---|
-| Dor e proposta | Preencher | Visao geral |
-| Banco e alternativas | Preencher | DER, esquema no Workbench |
-| Modelo e qualidade | Preencher | Dicionario e consulta de qualidade |
-| Operacao e resultados | Preencher | Entrada, venda, perda e cinco consultas |
-| Limites e conclusao | Preencher | PDF e proximos passos |
+| Dor e proposta | Ruptura e desperdicio | Visao geral |
+| Banco e alternativas | Integridade e transacoes | DER, esquema no Workbench |
+| Modelo e qualidade | Saldo derivado e regras | Dicionario e consulta de qualidade |
+| Operacao e resultados | Dados em uso | Entrada, venda, perda e cinco consultas |
+| Limites e conclusao | O que falta para producao | PDF e proximos passos |
 
 Todos devem conseguir responder: **por que MySQL?**, **de onde vem o saldo?**, **por que Redis?**, **o que foi medido de verdade?** e **o que ainda falta para producao?** A nota do enunciado privilegia a qualidade da justificativa: banco (3,0), modelo (3,0), governanca (1,5), prova (1,0), problema/inovacao (1,0) e pitch (0,5).
