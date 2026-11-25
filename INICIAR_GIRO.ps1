@@ -5,9 +5,11 @@ $mysqld = 'C:\Program Files\MySQL\MySQL Server 8.4\bin\mysqld.exe'
 $config = Join-Path $root 'mysql\my.ini'
 $rootCredentials = Join-Path $root 'mysql\runtime\root.cnf'
 $appCredentials = Join-Path $root 'mysql\runtime\app.cnf'
+$python = Join-Path $root '.venv\Scripts\python.exe'
 $url = 'http://127.0.0.1:3000'
 
-foreach ($file in @($mysql, $mysqld, $config, $rootCredentials)) {
+if (-not (Test-Path -LiteralPath $python)) { $python = (Get-Command python -ErrorAction Stop).Source }
+foreach ($file in @($mysql, $rootCredentials)) {
     if (-not (Test-Path -LiteralPath $file)) { throw "Arquivo ausente: $file" }
 }
 
@@ -18,7 +20,14 @@ function Test-MySQL {
 }
 
 if (-not (Test-MySQL)) {
-    Start-Process -FilePath $mysqld -ArgumentList "--defaults-file=$config" -WindowStyle Hidden
+    $service = Get-Service -Name 'MySQL*' -ErrorAction SilentlyContinue | Select-Object -First 1
+    if ($service) {
+        if ($service.Status -ne 'Running') { Start-Service -Name $service.Name }
+    } elseif ((Test-Path -LiteralPath $mysqld) -and (Test-Path -LiteralPath (Join-Path $root 'mysql\runtime\data'))) {
+        Start-Process -FilePath $mysqld -ArgumentList "--defaults-file=$config" -WindowStyle Hidden
+    } else {
+        throw 'MySQL nao configurado. Execute INSTALAR_GIRO.bat e finalize o MySQL Configurator.'
+    }
     $ready = $false
     for ($i = 0; $i -lt 30; $i++) {
         Start-Sleep -Seconds 1
@@ -29,7 +38,7 @@ if (-not (Test-MySQL)) {
 
 if (-not (Test-Path -LiteralPath $appCredentials)) {
     Push-Location $root
-    try { python scripts/configurar_app_mysql.py } finally { Pop-Location }
+    try { & $python -m scripts.configurar_app_mysql } finally { Pop-Location }
 }
 
 $redisReady = $false
@@ -47,7 +56,6 @@ if (-not $redisReady -and (Get-Command wsl.exe -ErrorAction SilentlyContinue)) {
 try { $health = Invoke-RestMethod -Uri "$url/api/health" -TimeoutSec 3 } catch { $health = $null }
 if (-not $health -or -not $health.ok -or $health.database -ne 'MySQL') {
     New-Item -ItemType Directory -Force -Path (Join-Path $root 'storage') | Out-Null
-    $python = (Get-Command python -ErrorAction Stop).Source
     Start-Process -FilePath $python -ArgumentList '-m giro.server' -WorkingDirectory $root -WindowStyle Hidden -RedirectStandardOutput (Join-Path $root 'storage/server.log') -RedirectStandardError (Join-Path $root 'storage/server-error.log')
     $ready = $false
     for ($i = 0; $i -lt 30; $i++) {

@@ -16,6 +16,8 @@ Os numeros acima incluem os registros de demonstracao e podem crescer ao usar a 
 
 ## Abrir o sistema completo
 
+Para instalar em outro Windows, baixe apenas [INSTALAR_GIRO.bat](INSTALAR_GIRO.bat) e execute-o. Ele baixa o projeto do GitHub, instala Python 3.13, Visual C++ Runtime, MySQL 8.4 e Workbench via `winget`, instala as bibliotecas Python em `.venv` e restaura o backup compactado. A senha `root` do MySQL e solicitada localmente, sem aparecer na tela. Veja [o guia da equipe](docs/INSTALACAO_EQUIPE.md). Se o MySQL Configurator ainda nao estiver concluido, finalize-o e execute o mesmo `.bat` de novo.
+
 1. De dois cliques em `INICIAR_GIRO.cmd`. O atalho inicia o MySQL e o servidor web local, se necessario, e abre o painel em `http://127.0.0.1:3000`.
 2. O painel mostra clientes, vendas, produtos, estoque, alertas e receita diretamente da base `giro_a3`.
 3. Use **Novo produto**, **Registrar entrada**, **Registrar venda** (com busca opcional de cliente) e **Registrar perda**. Depois confira o mesmo registro no MySQL Workbench.
@@ -34,7 +36,7 @@ Teste visual: `python -m scripts.testar_front` abre o Edge em modo automatico, p
 ## Abrir e mostrar
 
 1. De dois cliques em `INICIAR_MYSQL_GIRO.cmd`. Ele inicia o servidor local, se necessario, e abre o MySQL Workbench.
-2. Abra a conexao salva **GIRO A3 - MySQL local**. O esquema `giro_a3` aparece a esquerda.
+2. Abra a conexao salva **GIRO A3 - MySQL local** nesta maquina. Em outro Windows, crie a conexao com host, usuario e senha indicados em `mysql/CONEXAO_LOCAL.txt`. O esquema `giro_a3` aparece a esquerda.
 3. Expanda `Tables` e `Views`. Execute, por exemplo, `SELECT * FROM giro_a3.product_balance LIMIT 20;`.
 4. Para perguntas de negocio, abra os arquivos em `mysql/consultas/`. A consulta `07_qualidade.sql` deve retornar zero linhas.
 

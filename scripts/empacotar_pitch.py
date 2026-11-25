@@ -6,12 +6,12 @@ from zipfile import ZIP_DEFLATED, ZIP_STORED, ZipFile
 ROOT = Path(__file__).resolve().parents[1]
 TARGET = ROOT / "entrega" / "GIRO_A3_pacote_pitch.zip"
 FILES = [
-    "README.md", "requirements.txt", "INICIAR_GIRO.cmd", "INICIAR_GIRO.ps1",
+    "README.md", "requirements.txt", "INSTALAR_GIRO.bat", "INICIAR_GIRO.cmd", "INICIAR_GIRO.ps1",
     "INICIAR_MYSQL_GIRO.cmd", "INICIAR_MYSQL_GIRO.ps1",
     "giro/__init__.py", "giro/cache.py", "giro/mysql_db.py", "giro/server.py",
     "mysql/my.ini", "mysql/01_schema.sql", "mysql/02_seed.sql",
     "mysql/04_trigger.sql", "mysql/05_enable_app_writes.sql",
-    "scripts/configurar_app_mysql.py", "scripts/testar_fluxo_web.py", "scripts/testar_front.py", "scripts/validar_api_leitura.py", "scripts/relatorio.py",
+    "scripts/configurar_app_mysql.py", "scripts/preparar_banco_equipe.py", "scripts/testar_fluxo_web.py", "scripts/testar_front.py", "scripts/validar_api_leitura.py", "scripts/relatorio.py",
     "scripts/validar_mysql.py", "scripts/gerar_amostra_mysql.py",
     "entrega/GIRO_mysql_A3.sql.gz", "output/pdf/GIRO_relatorio_A3.pdf",
 ]
