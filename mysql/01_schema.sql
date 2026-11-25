@@ -18,11 +18,12 @@ CREATE TABLE IF NOT EXISTS customer (
   id BIGINT PRIMARY KEY,
   code VARCHAR(20) NOT NULL UNIQUE,
   name VARCHAR(80) NOT NULL,
-  CONSTRAINT ck_customer_name CHECK (CHAR_LENGTH(TRIM(name)) BETWEEN 3 AND 80)
+  CONSTRAINT ck_customer_name CHECK (CHAR_LENGTH(TRIM(name)) BETWEEN 3 AND 80),
+  INDEX ix_customer_name (name)
 );
 
 CREATE TABLE IF NOT EXISTS product (
-  id BIGINT PRIMARY KEY,
+  id BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY,
   sku VARCHAR(30) NOT NULL UNIQUE,
   name VARCHAR(80) NOT NULL,
   category_id BIGINT NOT NULL,
@@ -43,7 +44,7 @@ CREATE TABLE IF NOT EXISTS product (
 );
 
 CREATE TABLE IF NOT EXISTS batch (
-  id BIGINT PRIMARY KEY,
+  id BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY,
   product_id BIGINT NOT NULL,
   quantity_received INT NOT NULL,
   unit_cost_cents INT NOT NULL,
@@ -57,7 +58,7 @@ CREATE TABLE IF NOT EXISTS batch (
 );
 
 CREATE TABLE IF NOT EXISTS sale (
-  id BIGINT PRIMARY KEY,
+  id BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY,
   product_id BIGINT NOT NULL,
   customer_id BIGINT NULL,
   quantity INT NOT NULL,
@@ -72,7 +73,7 @@ CREATE TABLE IF NOT EXISTS sale (
 );
 
 CREATE TABLE IF NOT EXISTS stock_event (
-  id BIGINT PRIMARY KEY,
+  id BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY,
   batch_id BIGINT NOT NULL,
   kind VARCHAR(4) NOT NULL,
   quantity INT NOT NULL,
@@ -89,7 +90,8 @@ CREATE TABLE IF NOT EXISTS stock_event (
         AND CHAR_LENGTH(TRIM(reason)) BETWEEN 3 AND 120)
   ),
   INDEX ix_event_batch (batch_id),
-  INDEX ix_event_date (occurred_at)
+  INDEX ix_event_date (occurred_at),
+  INDEX ix_event_kind_date (kind, occurred_at)
 );
 
 CREATE OR REPLACE VIEW batch_balance AS

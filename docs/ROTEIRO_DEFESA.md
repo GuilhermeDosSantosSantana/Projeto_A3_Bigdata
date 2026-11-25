@@ -20,10 +20,12 @@
 
 **Onde esta a inovacao?** Na combinacao operacional de lote, validade, ponto de reposicao, cobertura e historico por cliente, com explicacoes auditaveis. A formula nao e IA.
 
-**Como impede estoque negativo?** O gatilho trava o lote e recusa evento que ultrapasse a quantidade recebida. A venda real ainda deve ser implementada como transacao que grave venda e baixas juntas.
+**Como impede estoque negativo?** O gatilho trava o lote e recusa evento que ultrapasse a quantidade recebida. A aplicacao grava a venda e as baixas dos lotes juntas em uma transacao, consumindo primeiro o lote que vence antes.
+
+**Por que Redis?** Para acelerar consultas repetidas do painel e do catalogo. O cache e invalidado apos escritas; se o Redis estiver indisponivel, um cache temporario em memoria atende leituras e se reconstrui a partir do MySQL. A fonte permanente e o MySQL.
 
 **A base tem dados pessoais?** Nao. Os clientes sao rotulos `Cliente Ficticio 000001` etc. Em uso real, seriam necessarios finalidade, base legal, minimizacao, acesso e retencao conforme LGPD.
 
 **E se crescer 100 vezes?** Medir carga e concorrencia; estudar particionamento por data, agregados, replicas, arquivamento e isolamento por centro de estoque. A base atual modela um centro.
 
-**O que foi realmente testado?** Contagens das sete tabelas, oito consultas SQL, dicionario comparado ao esquema, rejeicao de saldo negativo, perda sem motivo e cliente inexistente, e restauracao do dump com contagens identicas. O teste nao e um benchmark multiusuario.
+**O que foi realmente testado?** Contagens das sete tabelas, oito consultas SQL, dicionario comparado ao esquema, rejeicao de saldo negativo, perda sem motivo e cliente inexistente, restauracao do dump com contagens identicas, API e fluxos no navegador. O teste nao e um benchmark multiusuario.

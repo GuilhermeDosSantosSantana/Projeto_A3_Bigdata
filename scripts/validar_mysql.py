@@ -62,7 +62,7 @@ def main() -> None:
               for name in ("category", "supplier", "customer", "product", "batch", "sale", "stock_event")}
     expected_counts = {"category": 12, "supplier": 40, "customer": 500000, "product": 2000,
                        "batch": 2498, "sale": 750000, "stock_event": 755002}
-    if counts != expected_counts or queries["07_qualidade"]:
+    if any(counts[name] < minimum for name, minimum in expected_counts.items()) or queries["07_qualidade"]:
         raise RuntimeError(f"Contagens ou qualidade divergentes: {counts}")
 
     non_ascii = []

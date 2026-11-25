@@ -1,0 +1,53 @@
+{
+  "health": {
+    "ok": true,
+    "database": "MySQL",
+    "cache": "memory"
+  },
+  "products": {
+    "total": 2009,
+    "page_size": 12,
+    "pages": 168,
+    "page_1_ms": 5810,
+    "page_2_ms": 17,
+    "cache": [
+      "MISS",
+      "HIT"
+    ]
+  },
+  "customers": {
+    "total": 9999,
+    "page_size": 12,
+    "pages": 834,
+    "page_1_ms": 72,
+    "page_2_ms": 99,
+    "cache": [
+      null,
+      null
+    ]
+  },
+  "movements": {
+    "total": 757522,
+    "page_size": 20,
+    "pages": 37877,
+    "page_1_ms": 255,
+    "page_2_ms": 114,
+    "cache": [
+      null,
+      null
+    ]
+  },
+  "filter_entry": 2507,
+  "filter_sale": 750008,
+  "filter_loss": 5007,
+  "filter_risk": 11,
+  "filter_expiry": 61,
+  "details": "produto, lotes, eventos, cliente e compras carregados",
+  "invalid_requests": "3 filtros/paginas invalidos recusados",
+  "dashboard_cache": {
+    "first": "HIT",
+    "second": "HIT",
+    "first_ms": 7,
+    "second_ms": 25
+  }
+}

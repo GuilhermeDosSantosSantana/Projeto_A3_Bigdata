@@ -4,8 +4,10 @@ from __future__ import annotations
 
 import csv
 import json
+from io import BytesIO
 from pathlib import Path
 
+from PIL import Image as PILImage
 from reportlab.lib import colors
 from reportlab.lib.enums import TA_CENTER, TA_LEFT
 from reportlab.lib.pagesizes import A4
@@ -14,7 +16,7 @@ from reportlab.lib.units import mm
 from reportlab.pdfbase import pdfmetrics
 from reportlab.pdfbase.ttfonts import TTFont
 from reportlab.platypus import (
-    Flowable, KeepTogether, PageBreak, Paragraph, SimpleDocTemplate,
+    Flowable, Image, KeepTogether, PageBreak, Paragraph, SimpleDocTemplate,
     Spacer, Table, TableStyle,
 )
 
@@ -139,7 +141,7 @@ def page_frame(canvas, doc):
     canvas.line(18 * mm, 16 * mm, w - 18 * mm, 16 * mm)
     canvas.setFillColor(MUTED)
     canvas.setFont("Arial", 7)
-    canvas.drawString(18 * mm, 11 * mm, "Amostra fictícia em MySQL 8.4  •  23/11/2026")
+    canvas.drawString(18 * mm, 11 * mm, "Amostra fictícia em MySQL 8.4  •  25/11/2026")
     canvas.drawRightString(w - 18 * mm, 11 * mm, f"Página {doc.page}")
     canvas.restoreState()
 
@@ -150,7 +152,7 @@ story = []
 story += [Spacer(1, 18 * mm), P("GIRO", "LabelCustom"), P("Estoque confiável.<br/>Decisões no tempo certo.", "TitleCustom"),
           P("Projeto Startup de Dados  |  Avaliação A3  |  Análise de Dados e Big Data", "SubtitleCustom"),
           Spacer(1, 7 * mm),
-          table(["Integrantes", "Turma", "Data da evidência"], [["Preencher pelo grupo", "Preencher", "23/11/2026"]], [220, 90, 200]),
+          table(["Integrantes", "Turma", "Data da evidência"], [["Preencher pelo grupo", "Preencher", "25/11/2026"]], [220, 90, 200]),
           Spacer(1, 12 * mm), heading("4.1  Problema e visão"),
           P("Varejistas com grande volume de transações perdem vendas por ruptura de estoque e descartam produtos vencidos. O GIRO registra produtos, clientes, entradas por lote, vendas e perdas. O histórico permite alertas de reposição e validade e análises de vendas por cliente."),
           P("<b>Público-alvo:</b> gestor de estoque de uma operação varejista centralizada. <b>Proposta de valor:</b> saber o que repor, o que vender antes do vencimento e quanto capital está imobilizado. A amostra é sintética e todos os clientes são fictícios."),
@@ -170,7 +172,7 @@ story.append(PageBreak())
 story += [heading("4.2  Diagnóstico dos dados"),
           P("<b>Fontes:</b> cadastro de produtos, categorias, fornecedores e clientes fictícios; recebimentos por lote, vendas e perdas. Os dados são estruturados e gerados localmente por script com semente fixa. Não há nome real, telefone, e-mail, endereço pessoal, imagem ou API externa."),
           table(["V", "Aplicação ao GIRO"], [
-              ["Volume", "Amostra executada: 2 mil produtos, 500 mil clientes, 2.498 lotes, 750 mil vendas e 755.002 eventos."],
+              ["Volume", f"Amostra executada: {number(EVIDENCE['table_counts']['product'])} produtos, {number(EVIDENCE['table_counts']['customer'])} clientes, {number(EVIDENCE['table_counts']['batch'])} lotes, {number(EVIDENCE['table_counts']['sale'])} vendas e {number(EVIDENCE['table_counts']['stock_event'])} eventos."],
               ["Velocidade", "Escritas curtas a cada entrada, venda ou perda; leitura frequente do saldo."],
               ["Variedade", "Cadastros, clientes fictícios, lotes, vendas e eventos de baixa."],
               ["Veracidade", "SKU e referência únicos, FKs, CHECK, gatilhos, transações e conciliação."],
@@ -178,14 +180,14 @@ story += [heading("4.2  Diagnóstico dos dados"),
           ], [85, 425]),
           P("A carga foi criada para a prova de conceito e cobre vendas distribuídas em 90 dias; não representa demanda real. O acesso esperado combina escritas curtas de operação e consultas agregadas. A escala 100x seria cerca de 75 milhões de vendas e exige avaliação de capacidade específica."),
           heading("4.3  Escolha do banco - Eixo 1"),
-          P("<b>Escolha para a entrega de dados:</b> MySQL 8.4 com InnoDB, relacional e transacional. Produto, lote, cliente, venda e baixa exigem chaves, junções e regras de integridade. Uma venda que consome lotes deve ser gravada em transação. MySQL oferece múltiplas conexões, usuários com permissões distintas e ferramentas de inspeção para uma operação centralizada. O servidor foi instalado localmente; a prova de conceito exercita SQL e dados, sem afirmar que o aplicativo anterior já usa MySQL."),
+          P("<b>Escolha para a entrega de dados:</b> MySQL 8.4 com InnoDB, relacional e transacional. Produto, lote, cliente, venda e baixa exigem chaves, junções e regras de integridade. A aplicação atual lê e grava no MySQL; a venda e as baixas dos lotes são gravadas juntas em transação. MySQL oferece múltiplas conexões, usuários com permissões distintas e ferramentas de inspeção para uma operação centralizada."),
           table(["Critério", "MySQL 8.4", "SQLite", "PostgreSQL", "Documentos"], [
               ["Integridade", "ACID, FK, CHECK, gatilho", "ACID, FK, CHECK", "ACID, FK, CHECK", "Relações exigem desenho extra"],
               ["Concorrência", "Vários clientes", "Um escritor por arquivo", "Vários clientes / MVCC", "Depende do produto"],
               ["Operação", "Servidor e backup", "Arquivo simples", "Servidor e backup", "Servidor e gestão"],
               ["Decisão", "Escolhido para a A3", "Etapa local anterior", "Alternativa forte", "Não escolhido"],
           ], [80, 115, 100, 110, 105]),
-          P("SQLite foi a opção mais simples para a primeira tela local, mas limitava a defesa de acesso multiusuário e perfis. PostgreSQL também atenderia bem e é uma alternativa técnica séria; não há benchmark aqui que prove superioridade de MySQL. Banco de documentos não simplifica as relações e invariantes desta base. <b>CAP:</b> o MySQL instalado é uma instância única, sem distribuição; CAP só entra no projeto se houver replicação ou sincronização entre lojas."),
+          P("SQLite foi a opção mais simples para a primeira tela local, mas limitava a defesa de acesso multiusuário e perfis. PostgreSQL também atenderia bem e é uma alternativa técnica séria; não há benchmark aqui que prove superioridade de MySQL. Banco de documentos não simplifica as relações e invariantes desta base. <b>Redis</b> acelera leituras do painel e catálogo como cache descartável; quando indisponível, um cache temporário em memória evita repetir a consulta pesada a cada leitura. O MySQL continua a fonte definitiva. <b>CAP:</b> o MySQL instalado é uma instância única, sem distribuição; CAP só entra no projeto se houver replicação ou sincronização entre lojas."),
           P("Referências: dev.mysql.com/doc/refman/8.4/en/innodb-introduction.html; sqlite.org/whentouse.html; postgresql.org/docs/17/mvcc-intro.html.", "SmallCustom")]
 story.append(PageBreak())
 
@@ -226,9 +228,9 @@ story += [heading("4.5  Qualidade e governança"),
               ["Atualidade", "Saldo calculado das movimentações; lotes vencidos excluídos do saldo vendável."],
           ], [100, 410]),
           sub("Ingestão e tratamento de dados sujos"),
-          P("Fluxo da prova de conceito: gerador determinístico → SQL de carga em transação → validações MySQL (FK, UNIQUE, CHECK e gatilho) → tabelas normalizadas → visões de saldo → oito consultas. Uma entrada duplicada é recusada por chave única. O teste de baixa acima do saldo foi rejeitado pelo gatilho sem alterar o lote. A consulta de qualidade detecta lote negativo, venda divergente e vencido não baixado."),
+          P("Fluxo da prova de conceito: gerador determinístico → SQL de carga em transação → validações MySQL (FK, UNIQUE, CHECK e gatilho) → tabelas normalizadas → visões de saldo → oito consultas. Uma entrada duplicada é recusada por chave única. O teste de baixa acima do saldo foi rejeitado pelo gatilho sem alterar o lote. A consulta de qualidade detecta lote negativo, venda divergente e vínculo incoerente entre venda e lote. Lotes vencidos ainda com saldo são tratados como alerta operacional, não como erro de integridade."),
           sub("LGPD, acesso e backup"),
-          P("Os 500 mil clientes usam códigos e nomes artificiais, sem identificação de pessoa real. Se a solução coletar dados reais, deve definir finalidade, base legal, minimização, prazo de retenção e direitos dos titulares; execução de contrato é hipótese a avaliar conforme o fluxo (LGPD, art. 7º, V). O servidor MySQL escuta apenas em 127.0.0.1; o usuário giro_demo tem somente SELECT e SHOW VIEW. A senha local fica fora do Git. Foi gerado um dump SQL e testada a restauração em esquema separado com as mesmas contagens. Em produção, seriam necessários backup automático externo, teste periódico de restauração, controle de acesso por função e monitoramento."),
+          P("Os 500 mil clientes usam códigos e nomes artificiais, sem identificação de pessoa real. Se a solução coletar dados reais, deve definir finalidade, base legal, minimização, prazo de retenção e direitos dos titulares; execução de contrato é hipótese a avaliar conforme o fluxo (LGPD, art. 7º, V). O servidor MySQL escuta apenas em 127.0.0.1; giro_demo tem leitura e giro_app tem escrita restrita ao esquema da aplicação. As senhas locais ficam fora do Git. Foi gerado um dump SQL e testada a restauração em esquema separado com as mesmas contagens. Em produção, seriam necessários backup automático externo, teste periódico de restauração, controle de acesso por função e monitoramento."),
           P("Referência legal: Lei 13.709/2018, texto compilado em planalto.gov.br/ccivil_03/_ato2015-2018/2018/lei/l13709compilado.htm.", "SmallCustom")]
 story.append(PageBreak())
 
@@ -294,12 +296,34 @@ story += [heading("4.7  Limitações e próximos passos"),
           sub("Aprendizado técnico para o grupo revisar"),
           P("Um alerta confiável depende primeiro de uma definição precisa de saldo. Lote, venda e baixa precisam estar ligados por chaves, restrições e transações. A escolha de MySQL prioriza controle relacional, multiusuário e inspeção da base. O custo de operar o servidor é uma troca consciente."),
           sub("Defesa oral sugerida"),
-          P("'Escolhemos MySQL porque estoque depende de relações entre produto, lote, venda, cliente e baixa, com integridade referencial e transações. Carregamos 2 mil produtos, 500 mil clientes fictícios e 750 mil vendas. Sete consultas respondem perguntas de negócio; a oitava confere a qualidade. Testamos o gatilho de saldo e a restauração do dump. A arquitetura ainda tem um centro de estoque; múltiplos centros exigiriam identificador e isolamento.'"),
+          P("'Escolhemos MySQL porque estoque depende de relações entre produto, lote, venda, cliente e baixa, com integridade referencial e transações. Carregamos mais de 2 mil produtos, 500 mil clientes fictícios e 750 mil vendas. Sete consultas respondem perguntas de negócio; a oitava confere a qualidade. Testamos o gatilho de saldo, a restauração do dump e os fluxos do site. O Redis guarda só cache. A arquitetura ainda tem um centro de estoque; múltiplos centros exigiriam identificador e isolamento.'"),
           sub("Uso de IA e revisão"),
           P("Ferramentas de IA auxiliaram a redação, o código SQL/Python e a preparação do relatório. Antes da entrega, o grupo deve registrar nomes dos integrantes, turma, duração do pitch e o que cada integrante revisou. Os resultados do banco foram gerados por scripts locais e são reproduzíveis; não são dados reais de clientes."),
           sub("Arquivos entregues e referências"),
           P("mysql/01_schema.sql; mysql/02_seed.sql; mysql/03_volume_seed.sql; mysql/04_trigger.sql; mysql/consultas/01-08; docs/dicionario_de_dados_mysql.csv; entrega/GIRO_mysql_A3.sql; evidencias/mysql_resultados_consultas.json; scripts/gerar_amostra_mysql.py; scripts/validar_mysql.py."),
           P("Enunciado: A3 - Projeto Startup de Dados, disciplina Análise de Dados e Big Data. MySQL InnoDB: https://dev.mysql.com/doc/refman/8.4/en/innodb-introduction.html. SQLite: https://www.sqlite.org/whentouse.html. PostgreSQL: https://www.postgresql.org/docs/17/mvcc-intro.html. LGPD: https://www.planalto.gov.br/ccivil_03/_ato2015-2018/2018/lei/l13709compilado.htm.", "SmallCustom")]
+
+
+def screenshot(name):
+    path = ROOT / "evidencias" / name
+    with PILImage.open(path) as source:
+        preview = source.crop((0, 0, source.width, min(source.height, 900)))
+        stream = BytesIO()
+        preview.save(stream, format="PNG")
+    stream.seek(0)
+    flowable = Image(stream, width=400, height=400 * preview.height / preview.width)
+    flowable.hAlign = "CENTER"
+    return flowable
+
+
+story += [PageBreak(), heading("Apêndice — fluxos na aplicação"),
+          P("Capturas reais da interface local conectada ao MySQL. O roteiro completo para demonstrar cada ação está em docs/GUIA_DE_USO_PITCH.md; os scripts de validação estão em scripts/testar_front.py e scripts/testar_fluxo_web.py."),
+          sub("1. Visão geral, indicadores e prioridades"), screenshot("giro_visao_geral.png"),
+          Spacer(1, 3 * mm), sub("2. Catálogo com busca e paginação"), screenshot("giro_produtos.png"),
+          PageBreak(), heading("Apêndice — operação comprovada"),
+          P("O teste de navegador cadastra produto sem informar ID, edita o cadastro, registra entrada, recusa venda acima do saldo, vende com cliente, registra perda e confere o saldo final e o histórico."),
+          sub("3. Venda com prévia de valor e seleção de cliente"), screenshot("giro_registro_venda.png"),
+          Spacer(1, 3 * mm), sub("4. Perda com motivo obrigatório"), screenshot("giro_registro_perda.png")]
 
 OUTPUT.parent.mkdir(parents=True, exist_ok=True)
 doc = SimpleDocTemplate(str(OUTPUT), pagesize=A4, leftMargin=15 * mm, rightMargin=15 * mm,

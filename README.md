@@ -7,10 +7,29 @@ O foco da entrega e o **MySQL 8.4**. O esquema `giro_a3` foi instalado nesta maq
 | `category` | 12 |
 | `supplier` | 40 |
 | `customer` | 500.000 |
-| `product` | 2.000 |
-| `batch` | 2.498 |
-| `sale` | 750.000 |
-| `stock_event` | 755.002 |
+| `product` | 2.001+ |
+| `batch` | 2.500+ |
+| `sale` | 750.001+ |
+| `stock_event` | 755.005+ |
+
+Os numeros acima incluem os registros de demonstracao e podem crescer ao usar a interface.
+
+## Abrir o sistema completo
+
+1. De dois cliques em `INICIAR_GIRO.cmd`. O atalho inicia o MySQL e o servidor web local, se necessario, e abre o painel em `http://127.0.0.1:3000`.
+2. O painel mostra clientes, vendas, produtos, estoque, alertas e receita diretamente da base `giro_a3`.
+3. Use **Novo produto**, **Registrar entrada**, **Registrar venda** (com busca opcional de cliente) e **Registrar perda**. Depois confira o mesmo registro no MySQL Workbench.
+4. Para iniciar somente o banco e abrir o Workbench, use `INICIAR_MYSQL_GIRO.cmd`.
+
+O servidor web usa `mysql-connector-python` e uma conta local `giro_app` com permissoes restritas a leitura e gravacao no esquema da A3. As credenciais ficam em `mysql/runtime/app.cnf`, ignorado pelo Git. O servidor web e o MySQL escutam apenas em `127.0.0.1`.
+
+O Redis e usado como cache descartavel do painel e do catalogo quando esta disponivel. Se o Redis local falhar, um cache temporario em memoria mantem as leituras rapidas; o MySQL continua sendo a fonte dos dados. Produtos e clientes sao mostrados em paginas de 12 registros; movimentacoes, em paginas de 20. As respostas da API incluem `items`, `page`, `pages` e `total`.
+
+Para a apresentacao, siga [o guia de cada fluxo](docs/GUIA_DE_USO_PITCH.md). Para redigir e defender a A3 segundo o enunciado, use [o guia de redacao](docs/GUIA_DE_REDACAO_A3.md). Os prints estao em `evidencias/` e no apendice do PDF.
+
+Teste de ponta a ponta: `python -m scripts.testar_fluxo_web` cria um produto sintetico, duas entradas, uma venda associada a cliente e uma perda; tambem confirma que uma venda sem saldo e recusada. O teste deixa esses dados de demonstracao no banco.
+
+Teste visual: `python -m scripts.testar_front` abre o Edge em modo automatico, percorre navegacao, cadastro, edicao, entrada, venda, perda, busca e paginacao, e atualiza os prints. Tambem deixa dados sinteticos identificados por SKU `UI-*`.
 
 ## Abrir e mostrar
 
@@ -27,16 +46,21 @@ O usuario `giro_demo` da conexao visual tem apenas `SELECT` e `SHOW VIEW`. As cr
 - `output/pdf/GIRO_relatorio_A3.pdf`: relatorio da A3, justificativa e resultados.
 - `entrega/GIRO_mysql_A3.sql`: backup restauravel do esquema, dados, visoes e gatilho.
 - `entrega/GIRO_mysql_A3.sql.gz`: o mesmo backup compactado para copiar ou versionar.
-- `mysql/01_schema.sql`: sete tabelas, FKs, CHECK, indices e duas visoes.
+- `mysql/01_schema.sql`: sete tabelas, FKs, CHECK, indices, IDs gerados automaticamente para transacoes novas e duas visoes.
 - `mysql/02_seed.sql`: registros pequenos de referencia.
 - `mysql/03_volume_seed.sql`: carga sintetica grande, gerada de modo deterministico.
 - `mysql/04_trigger.sql`: protecao de saldo e coerencia venda-lote.
+- `mysql/05_enable_app_writes.sql`: migracao da base ja instalada para IDs gerados automaticamente.
+- `giro/mysql_db.py`, `giro/server.py` e `web/`: backend e painel conectados ao MySQL.
 - `mysql/consultas/`: sete consultas de negocio e uma de qualidade.
 - `docs/dicionario_de_dados_mysql.csv`: 38 campos, tipos reais conferidos contra `information_schema`.
 - `evidencias/mysql_resultados_consultas.json`: resultados das consultas, contagens e teste de restauracao.
 - `scripts/gerar_amostra_mysql.py`: regenerador da carga.
 - `scripts/validar_mysql.py`: validador, gerador do dump e teste de restauracao.
 - `docs/ROTEIRO_DEFESA.md`: explicacao curta para o pitch.
+- `docs/GUIA_DE_USO_PITCH.md`: passo a passo de cada fluxo com prints.
+- `docs/GUIA_DE_REDACAO_A3.md`: estrutura de redacao e divisao da fala conforme o enunciado.
+- `docs/RESULTADOS_VALIDACAO.md`: o que passou nos testes e limites observados.
 
 ## Reconstruir a base nesta maquina
 
@@ -48,4 +72,4 @@ Para repetir a validacao com o MySQL em funcionamento:
 python scripts\validar_mysql.py
 ```
 
-O antigo prototipo de interface usa SQLite e permanece apenas como historico de desenvolvimento. A prova de conceito entregue e defendida neste material e a base MySQL; nao ha integracao confirmada entre aquela interface e o MySQL.
+O prototipo antigo com SQLite permanece em `historico/sqlite/` apenas como historico. O painel atual utiliza a base MySQL da A3.

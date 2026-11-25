@@ -11,7 +11,7 @@ category;name;varchar(80);NO;UNI;Nome comercial da categoria;Obrigatório e úni
 category;color;char(7);NO;;Cor de exibição;Obrigatório e comprimento 7
 customer;id;bigint;NO;PRI;Identificador do cliente ficticio;PK
 customer;code;varchar(20);NO;UNI;Codigo ficticio do cliente;Obrigatorio e unico
-customer;name;varchar(80);NO;;Nome de demonstracao sem dado pessoal;Obrigatorio e 3 a 80 caracteres
+customer;name;varchar(80);NO;MUL;Nome de demonstracao sem dado pessoal;Obrigatorio e 3 a 80 caracteres
 product;id;bigint;NO;PRI;Identificador do produto;PK
 product;sku;varchar(30);NO;UNI;Código comercial do produto;Obrigatório e único
 product;name;varchar(80);NO;;Descrição do produto;Obrigatório e 3 a 80 caracteres
@@ -30,7 +30,7 @@ sale;unit_price_cents;int;NO;;Preço unitário registrado na venda;Inteiro não 
 sale;sold_at;datetime;NO;;Instante UTC da venda;Obrigatório e padrão datetime now
 stock_event;id;bigint;NO;PRI;Identificador do evento de baixa;PK
 stock_event;batch_id;bigint;NO;MUL;Lote consumido;FK batch.id obrigatória
-stock_event;kind;varchar(4);NO;;Natureza da baixa;SALE ou LOSS
+stock_event;kind;varchar(4);NO;MUL;Natureza da baixa;SALE ou LOSS
 stock_event;quantity;int;NO;;Quantidade baixada do lote;Inteiro positivo e gatilho impede saldo negativo
 stock_event;sale_id;bigint;YES;MUL;Venda que gerou a baixa;FK sale.id obrigatória em SALE e nula em LOSS
 stock_event;reason;varchar(120);YES;;Motivo da perda;Obrigatório em LOSS e nulo em SALE
